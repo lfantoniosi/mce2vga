@@ -1,4 +1,9 @@
 /db/*
 /incremental_db/*
 /simulation/*
+/output_files/*
+!/output_files/mce2vga.cof
+!/output_files/mce2vga.jic
+!/output_files/mce2vga.sof
 *.bak
+*.rpt
