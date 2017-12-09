@@ -443,7 +443,7 @@ begin
 	begin
 		if (rising_edge(clk)) then
 			videov <= '0'; 
-			if ( vcount > 0 and vcount < vert_active_video + 1 and (no_video = '1' or row_number < max_row)) then 
+			if ( vcount > 0 and vcount < vert_active_video + 1 and row_number < max_row) then 
 				videov <= '1';
 			end if;	
 	   end if;
@@ -454,7 +454,7 @@ begin
 	begin
 		if (rising_edge(clk)) then
 			videoh <= '0';
-			if (hcount < hor_active_video and (no_video = '1' or col_number < (max_col - 2))) then
+			if (hcount < hor_active_video and col_number < (max_col - 6)) then
 				videoh <= '1';
 			end if;
 		end if;

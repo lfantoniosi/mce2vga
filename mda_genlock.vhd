@@ -56,7 +56,7 @@ signal adj_trg_up: std_logic := '0';
 signal adj_trg_down: std_logic := '0';
 signal adj_x : unsigned(4 downto 0) := "00111";
 signal adj_y : unsigned(4 downto 0) := "10000";
-signal sample_ticks: unsigned(4 downto 0) := "00110";
+signal sample_ticks: unsigned(4 downto 0) := "01010";
 signal sample_adj: integer range 0 to 7 := samples;
 signal adj_trg_reset: std_logic := '0';
 
@@ -381,6 +381,32 @@ begin
 			if (hcount(2 downto 0) = "100") then
 				pixel <= vi(1)&vi(0)&vi(1)&vi(0)&vi(1)&vi(0);
 			end if;
+			
+--				if (vcount < 64) then
+--					if col_number = 128 + 16 then
+--						pixel <= (others => vcount(0));
+--					elsif col_number > 128 + 16 and col_number < 128 + 32 then
+--						pixel <= (others => sample_ticks(4));
+--					elsif col_number = 128 + 32 then
+--						pixel <= (others => vcount(0));
+--					elsif col_number > 128 + 32 and col_number < 128 + 48 then
+--						pixel <= (others => sample_ticks(3));
+--					elsif col_number = 128 + 48 then
+--						pixel <= (others => vcount(0));
+--					elsif col_number > 128 + 48 and col_number < 128 + 64 then
+--						pixel <= (others => sample_ticks(2));
+--					elsif col_number = 128 + 64 then
+--						pixel <= (others => vcount(0));
+--					elsif col_number > 128 + 64 and col_number < 128 + 80 then
+--						pixel <= (others => sample_ticks(1));
+--					elsif col_number = 128 + 80 then
+--						pixel <= (others => vcount(0));
+--					elsif col_number > 128 + 80 and col_number < 128 + 96 then
+--						pixel <= (others => sample_ticks(0));
+--					elsif col_number = 128 + 96 then
+--						pixel <= (others => vcount(0));
+--					end if;
+--				end if;			
 
 		end if;
 		
