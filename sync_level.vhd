@@ -13,8 +13,7 @@ entity sync_level is
 		constant double_scan	: std_logic	:= '0';	
 		constant hsync_ticks	: integer := 7;	
 		constant vsync_ticks	: integer := 63;
-		constant	default		: std_logic := '0';
-		constant min_row		: integer := 640
+		constant	default		: std_logic := '0'
 	);
 	
     port(clk 			: in std_logic;
@@ -70,11 +69,10 @@ begin
 			hcount <= hcount + 1;
 		end if;
 		
-		if (hsync /= sync) then -- and hcount > min_row*8) then
+		if (hsync /= sync) then
 		
 			peak := peak + 1;	
 			
-			---if (((hsync = hsync_level) and (peak > hsync_adjust)) or ((hsync /= hsync_level) and (peak > 63))) then
 			if (peak > hsync_adjust) then
 			
 				peak := 0;
@@ -123,7 +121,7 @@ begin
 		
 		vchange <= '0'; 
 		
-		if (vsync /= sync) then
+		if (vsync /= sync or vsync = 'Z') then
 		
 			peak := peak + 1;	
 			
@@ -148,37 +146,40 @@ begin
 	end if;
 end process;
 
-process(clk, vsync)
-variable peak_lo: integer range 0 to 1024*1024*128;
+process(clk, vsync, vchange)
+variable peak_lo: integer range 0 to (1024*1024*16-1);
 begin
 	if (rising_edge(clk)) then
 		
-		if(vsync = '0') then
-			if (peak_lo < 1024*1024*128) then
-				peak_lo := peak_lo + 1;		
+		if(vsync = '0' or vsync = 'Z') then
+			if (peak_lo < (1024*1024*16-1)) then
+				peak_lo := peak_lo + 1;	
 			end if;
+			
 			if(vchange = '1') then
 				vsync_lo <= peak_lo;
 				peak_lo := 0;		
-			end if;
+			end if;			
+			
 		end if;
 		
 	end if;
 end process;
 
-process(clk, vsync)
-variable peak_hi: integer range 0 to 1024*1024*128;
+process(clk, vsync, vchange)
+variable peak_hi: integer range 0 to (1024*1024*16-1);
 begin
 	if (rising_edge(clk)) then
 		
 		if (vsync = '1') then
-			if (peak_hi < 1024*1024*128) then
-				peak_hi := peak_hi + 1;		
+			if (peak_hi < (1024*1024*16-1)) then
+				peak_hi := peak_hi + 1;						
 			end if;
+			
 			if(vchange = '1') then
 				vsync_hi <= peak_hi;
 				peak_hi := 0;						
-			end if;		
+			end if;					
 		end if;
 		
 	end if;
@@ -207,25 +208,23 @@ begin
 	if (rising_edge(clk)) then
 		
 		if (video_trg = '1') then
-
 			
 			if (enable = '1') then
 			
 				if (hcount = 65535) then
 				
-					video_enable <= (default and enable);
-					no_video <= '1';		
+					video_enable <= default;
+					no_video <= default;		
 					
 				elsif ((vsync_level = '0' and vsync_lo < vsync_hi) or (vsync_level = '1' and vsync_hi < vsync_lo)) then
 						video_enable <= '1';
 						no_video <= '0';
 				else
 					video_enable <= '0';
-					no_video <= '1';					
+					no_video <= '0';					
 				end if;
 				
-			else
-			
+			else			
 				video_enable <= '0';
 				no_video <= '0';					
 			end if;

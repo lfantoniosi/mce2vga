@@ -376,13 +376,7 @@ begin
 					red_pixel := pixel_in(5 downto 4) & "00";
 					green_pixel := pixel_in(3 downto 2) & "00";
 					blue_pixel := pixel_in(1 downto 0) & "00";
-				--end if;				
-
-				if (no_video = '1') then				
-					red_pixel := "0000";
-					green_pixel := "0000";
-					blue_pixel := "0000";
-				end if;	
+				--end if;					
 				
 				if (mono = '1') then
 				
@@ -402,6 +396,12 @@ begin
 					end if;
 				
 				end if;
+				
+				if (no_video = '1') then				
+					red_pixel := "0000";
+					green_pixel := "0000";
+					blue_pixel := "0000";
+				end if;								
 				
 				if (mono = '0' or scanline = '1') then
 					red_pixel(1) := red_pixel(3) or red_pixel(2);
