@@ -79,7 +79,7 @@ signal adj_trg_up: std_logic := '0';
 signal adj_trg_down: std_logic := '0';
 signal adj_x : unsigned(4 downto 0) := "01000"; --"0110111";
 signal adj_y : unsigned(4 downto 0) := "10000";
-signal sample_ticks: unsigned(4 downto 0) := "00110"; --"01010";
+signal sample_ticks: unsigned(4 downto 0) := "10110"; --"01010";
 signal sample_adj: integer range 0 to 7 := samples;
 signal adj_trg_reset: std_logic := '0';
 
