@@ -117,7 +117,8 @@ entity vga_video is
 		adj_y					: in unsigned(4 downto 0);
 		max_col				: in unsigned(9 downto 0);
 		max_row				: in unsigned(9 downto 0);
-		adjust_mode			: in std_logic
+		adjust_mode			: in std_logic;
+		green_monitor		: in std_logic
     );
 end vga_video;
 
@@ -135,31 +136,78 @@ signal blank										: std_logic;
 signal start_row									: unsigned(9 downto 0);
 signal start_col									: unsigned(9 downto 0);
 
-function f_scanline(pattern: unsigned) return unsigned;
-function f_scanline(pattern: unsigned) return unsigned is
+function f_luminance(pattern: unsigned) return unsigned;
+function f_luminance(pattern: unsigned) return unsigned is
 variable VALUE : unsigned (3 downto 0); 
 begin
 		case pattern is	
-			when	"0000"  => VALUE :=	"0000";
-			when	"0001"  => VALUE :=	"0001";
-			when	"0010"  => VALUE :=	"0010";
-			when	"0011"  => VALUE :=	"0010";
-			when	"0100"  => VALUE :=	"0011";
-			when	"0101"  => VALUE :=	"0100";
-			when	"0110"  => VALUE :=	"0101";
-			when	"0111"  => VALUE :=	"0101";
-			when	"1000"  => VALUE :=	"0110";
-			when	"1001"  => VALUE :=	"0111";
-			when	"1010"  => VALUE :=	"1000";
-			when	"1011"  => VALUE :=	"1000";
-			when	"1100"  => VALUE :=	"1001";
-			when	"1101"  => VALUE :=	"1010";
-			when	"1110"  => VALUE :=	"1011";
-			when	"1111"  => VALUE :=	"1011";
+			when "000000" => VALUE := "0000";
+			when "000001" => VALUE := "0001";
+			when "000010" => VALUE := "0001";
+			when "000011" => VALUE := "0010";
+			when "000100" => VALUE := "0010";
+			when "000101" => VALUE := "0011";
+			when "000110" => VALUE := "0011";
+			when "000111" => VALUE := "0100";
+			when "001000" => VALUE := "0101";
+			when "001001" => VALUE := "0101";
+			when "001010" => VALUE := "0110";
+			when "001011" => VALUE := "0110";
+			when "001100" => VALUE := "0111";
+			when "001101" => VALUE := "1000";
+			when "001110" => VALUE := "1000";
+			when "001111" => VALUE := "1001";
+			when "010000" => VALUE := "0001";
+			when "010001" => VALUE := "0010";
+			when "010010" => VALUE := "0010";
+			when "010011" => VALUE := "0011";
+			when "010100" => VALUE := "0100";
+			when "010101" => VALUE := "0100";
+			when "010110" => VALUE := "0101";
+			when "010111" => VALUE := "0101";
+			when "011000" => VALUE := "0110";
+			when "011001" => VALUE := "0110";
+			when "011010" => VALUE := "0111";
+			when "011011" => VALUE := "0111";
+			when "011100" => VALUE := "1000";
+			when "011101" => VALUE := "1001";
+			when "011110" => VALUE := "1001";
+			when "011111" => VALUE := "1010";
+			when "100000" => VALUE := "0010";
+			when "100001" => VALUE := "0011";
+			when "100010" => VALUE := "0011";
+			when "100011" => VALUE := "0100";
+			when "100100" => VALUE := "0101";
+			when "100101" => VALUE := "0101";
+			when "100110" => VALUE := "0110";
+			when "100111" => VALUE := "0110";
+			when "101000" => VALUE := "0111";
+			when "101001" => VALUE := "1000";
+			when "101010" => VALUE := "1000";
+			when "101011" => VALUE := "1001";
+			when "101100" => VALUE := "1001";
+			when "101101" => VALUE := "1010";
+			when "101110" => VALUE := "1010";
+			when "101111" => VALUE := "1011";
+			when "110000" => VALUE := "0100";
+			when "110001" => VALUE := "0100";
+			when "110010" => VALUE := "0101";
+			when "110011" => VALUE := "0101";
+			when "110100" => VALUE := "0110";
+			when "110101" => VALUE := "0110";
+			when "110110" => VALUE := "0111";
+			when "110111" => VALUE := "0111";
+			when "111000" => VALUE := "1000";
+			when "111001" => VALUE := "1001";
+			when "111010" => VALUE := "1001";
+			when "111011" => VALUE := "1010";
+			when "111100" => VALUE := "1011";
+			when "111101" => VALUE := "1011";
+			when "111110" => VALUE := "1100";
+			when "111111" => VALUE := "1100";
 		end case;		
-		return VALUE;
-		
-end f_scanline;
+		return VALUE;		
+end f_luminance;
 
 begin
 
@@ -347,7 +395,7 @@ begin
 	-- pixel color
 	process(clk, enable, hcount, vcount, pixel_in, col_number, merge_rows) 
 	variable osd, osd_mask: std_logic;
-	variable prev_row : ram_type;
+	--variable prev_row : ram_type;
 	variable prev_pixel : unsigned(5 downto 0);
 	variable red_pixel: unsigned(3 downto 0);
 	variable green_pixel: unsigned(3 downto 0);
@@ -364,8 +412,8 @@ begin
 				
 			elsif (rising_edge(clk)) then
 				
-				prev_pixel := prev_row(to_integer(col_number));
-				prev_row(to_integer(col_number)) := pixel_in;
+				--prev_pixel := prev_row(to_integer(col_number));
+				--prev_row(to_integer(col_number)) := pixel_in;
 				
 				--if (merge_rows = '1') then				
 				--	red_pixel := to_unsigned(to_integer(prev_pixel(5 downto 4)) + to_integer(pixel_in(5 downto 4)), 3) & '0';
@@ -373,61 +421,66 @@ begin
 				--	blue_pixel := to_unsigned(to_integer(prev_pixel(1 downto 0)) + to_integer(pixel_in(1 downto 0)), 3) & '0';
 				--else
 				--	--	pixel := pixel_in;				
+				--end if;	
+
+				if (green_monitor = '1') then
+					red_pixel := "0000";
+					blue_pixel := "0000";
+					green_pixel := f_luminance(pixel_in);
+				else
+				
 					red_pixel := pixel_in(5 downto 4) & "00";
 					green_pixel := pixel_in(3 downto 2) & "00";
 					blue_pixel := pixel_in(1 downto 0) & "00";
-				--end if;					
-				
-				if (mono = '1') then
-				
-					if (scanline = '0') then
+
+					if (mono = '1') then
 					
-						if (adjust_mode = '1') then
-							-- amber
-							green_pixel := '0' & green_pixel(3 downto 1);
-							blue_pixel := "0000";	
-							
-						else
-							-- green
-							red_pixel := "0000";
-							blue_pixel := "0000";																		
-						end if;
+						if (scanline = '0') then
 						
+							if (adjust_mode = '1') then
+								-- amber
+								green_pixel := '0' & green_pixel(3 downto 1);
+								blue_pixel := "0000";	
+								
+							else
+								-- green
+								red_pixel := "0000";
+								blue_pixel := "0000";																		
+							end if;
+							
+						end if;
+					
 					end if;
+					
+					if (no_video = '1') then				
+						red_pixel := "0000";
+						green_pixel := "0000";
+						blue_pixel := "0000";
+					end if;								
+					
+					if (mono = '0' or scanline = '1') then
+						red_pixel(1) := red_pixel(3) or red_pixel(2);
+						green_pixel(1) := green_pixel(3) or green_pixel(2);
+						blue_pixel(1) := blue_pixel(3) or blue_pixel(2);					
+					end if;
+
+					red_pixel(0) := red_pixel(3) or red_pixel(2);
+					green_pixel(0) := green_pixel(3) or green_pixel(2);
+					blue_pixel(0) := blue_pixel(3) or blue_pixel(2);
 				
 				end if;
-				
-				if (no_video = '1') then				
-					red_pixel := "0000";
-					green_pixel := "0000";
-					blue_pixel := "0000";
-				end if;								
-				
-				if (mono = '0' or scanline = '1') then
-					red_pixel(1) := red_pixel(3) or red_pixel(2);
-					green_pixel(1) := green_pixel(3) or green_pixel(2);
-					blue_pixel(1) := blue_pixel(3) or blue_pixel(2);					
-				end if;				
 
-				red_pixel(0) := red_pixel(3) or red_pixel(2);
-				green_pixel(0) := green_pixel(3) or green_pixel(2);
-				blue_pixel(0) := blue_pixel(3) or blue_pixel(2);
 				
-				if (scanline = '1' and mono = '0') then
+				if (scanline = '1' and mono = '0' and scale_mode = 1) then
 				
 					if (vcount(0) = '1') then
 					
-						if (scale_mode = 1) then
-							red_pixel := '0' & red_pixel(3 downto 1);
-							green_pixel := '0' & green_pixel(3 downto 1);
-							blue_pixel := '0' & blue_pixel(3 downto 1);
-						else
-							red_pixel(0) := '0';
-							green_pixel(0) := '0';
-							blue_pixel(0) := '0';						
-						end if;
+						red_pixel := '0' & red_pixel(3 downto 1);
+						green_pixel := '0' & green_pixel(3 downto 1);
+						blue_pixel := '0' & blue_pixel(3 downto 1);
 						
 					end if;					
+					
 				end if;
 					
 				r_out <= red_pixel and (blank&blank&blank&blank);

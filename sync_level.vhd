@@ -213,8 +213,8 @@ begin
 			
 				if (hcount = 65535) then
 				
-					video_enable <= default;
-					no_video <= default;		
+					video_enable <= '0';
+					no_video <= '0';		
 					
 				elsif ((vsync_level = '0' and vsync_lo < vsync_hi) or (vsync_level = '1' and vsync_hi < vsync_lo)) then
 						video_enable <= '1';
