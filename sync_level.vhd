@@ -121,7 +121,7 @@ begin
 		
 		vchange <= '0'; 
 		
-		if (vsync /= sync or vsync = 'Z') then
+		if (vsync /= sync) then
 		
 			peak := peak + 1;	
 			
