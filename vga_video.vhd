@@ -424,9 +424,14 @@ begin
 				--end if;	
 
 				if (green_monitor = '1') then
-					red_pixel := "0000";
+					if(adjust_mode = '1') then
+						red_pixel := f_luminance(pixel_in);
+						green_pixel := '0' & f_luminance(pixel_in)(3 downto 1);
+					else
+						red_pixel := "0000";
+						green_pixel := f_luminance(pixel_in);
+					end if;
 					blue_pixel := "0000";
-					green_pixel := f_luminance(pixel_in);
 				else
 				
 					red_pixel := pixel_in(5 downto 4) & "00";
