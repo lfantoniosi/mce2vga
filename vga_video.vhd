@@ -141,70 +141,70 @@ function f_luminance(pattern: unsigned) return unsigned is
 variable VALUE : unsigned (3 downto 0); 
 begin
 		case pattern is	
-			when "000000" => VALUE := "0000";
-			when "000001" => VALUE := "0001";
-			when "000010" => VALUE := "0001";
-			when "000011" => VALUE := "0010";
-			when "000100" => VALUE := "0010";
-			when "000101" => VALUE := "0011";
-			when "000110" => VALUE := "0011";
-			when "000111" => VALUE := "0100";
-			when "001000" => VALUE := "0101";
-			when "001001" => VALUE := "0101";
-			when "001010" => VALUE := "0110";
-			when "001011" => VALUE := "0110";
-			when "001100" => VALUE := "0111";
-			when "001101" => VALUE := "1000";
-			when "001110" => VALUE := "1000";
-			when "001111" => VALUE := "1001";
-			when "010000" => VALUE := "0001";
-			when "010001" => VALUE := "0010";
-			when "010010" => VALUE := "0010";
-			when "010011" => VALUE := "0011";
-			when "010100" => VALUE := "0100";
-			when "010101" => VALUE := "0100";
-			when "010110" => VALUE := "0101";
-			when "010111" => VALUE := "0101";
-			when "011000" => VALUE := "0110";
-			when "011001" => VALUE := "0110";
-			when "011010" => VALUE := "0111";
-			when "011011" => VALUE := "0111";
-			when "011100" => VALUE := "1000";
-			when "011101" => VALUE := "1001";
-			when "011110" => VALUE := "1001";
-			when "011111" => VALUE := "1010";
-			when "100000" => VALUE := "0010";
-			when "100001" => VALUE := "0011";
-			when "100010" => VALUE := "0011";
-			when "100011" => VALUE := "0100";
-			when "100100" => VALUE := "0101";
-			when "100101" => VALUE := "0101";
-			when "100110" => VALUE := "0110";
-			when "100111" => VALUE := "0110";
-			when "101000" => VALUE := "0111";
-			when "101001" => VALUE := "1000";
-			when "101010" => VALUE := "1000";
-			when "101011" => VALUE := "1001";
-			when "101100" => VALUE := "1001";
-			when "101101" => VALUE := "1010";
-			when "101110" => VALUE := "1010";
-			when "101111" => VALUE := "1011";
-			when "110000" => VALUE := "0100";
-			when "110001" => VALUE := "0100";
-			when "110010" => VALUE := "0101";
-			when "110011" => VALUE := "0101";
-			when "110100" => VALUE := "0110";
-			when "110101" => VALUE := "0110";
-			when "110110" => VALUE := "0111";
-			when "110111" => VALUE := "0111";
-			when "111000" => VALUE := "1000";
-			when "111001" => VALUE := "1001";
-			when "111010" => VALUE := "1001";
-			when "111011" => VALUE := "1010";
-			when "111100" => VALUE := "1011";
-			when "111101" => VALUE := "1011";
-			when "111110" => VALUE := "1100";
-			when "111111" => VALUE := "1100";
+			when "000000" => VALUE := "0000";	-- BLACK
+			when "000001" => VALUE := "1000";
+			when "000010" => VALUE := "0001";	-- BLUE
+			when "000011" => VALUE := "1001";	-- LIGHT BLUE
+			when "000100" => VALUE := "1000";
+			when "000101" => VALUE := "1000";
+			when "000110" => VALUE := "1001";
+			when "000111" => VALUE := "1001";
+			when "001000" => VALUE := "0100";	-- GREEN
+			when "001001" => VALUE := "1100";
+			when "001010" => VALUE := "0101";	-- CYAN
+			when "001011" => VALUE := "1101";
+			when "001100" => VALUE := "1100";	-- LIGHT GREEN
+			when "001101" => VALUE := "1100";
+			when "001110" => VALUE := "1101";
+			when "001111" => VALUE := "1101";	-- LIGHT CYAN
+			when "010000" => VALUE := "1000";
+			when "010001" => VALUE := "1000";
+			when "010010" => VALUE := "1001";
+			when "010011" => VALUE := "1001";
+			when "010100" => VALUE := "1000";
+			when "010101" => VALUE := "1000";	-- DARK GRAY
+			when "010110" => VALUE := "1001";
+			when "010111" => VALUE := "1001";
+			when "011000" => VALUE := "1100";
+			when "011001" => VALUE := "1100";
+			when "011010" => VALUE := "1101";
+			when "011011" => VALUE := "1101";
+			when "011100" => VALUE := "1100";
+			when "011101" => VALUE := "1100";
+			when "011110" => VALUE := "1101";
+			when "011111" => VALUE := "1101";
+			when "100000" => VALUE := "0010";	-- RED
+			when "100001" => VALUE := "1010";
+			when "100010" => VALUE := "0011";	-- MAGENTA
+			when "100011" => VALUE := "1011";
+			when "100100" => VALUE := "0110";	-- BROWN
+			when "100101" => VALUE := "1010";
+			when "100110" => VALUE := "1011";
+			when "100111" => VALUE := "1011";
+			when "101000" => VALUE := "0110";
+			when "101001" => VALUE := "1110";
+			when "101010" => VALUE := "0111";	-- LIGHT GRAY
+			when "101011" => VALUE := "1111";
+			when "101100" => VALUE := "1110";
+			when "101101" => VALUE := "1110";
+			when "101110" => VALUE := "1111";
+			when "101111" => VALUE := "1111";
+			when "110000" => VALUE := "1010";	-- LIGHT RED
+			when "110001" => VALUE := "1010";
+			when "110010" => VALUE := "1011";
+			when "110011" => VALUE := "1011";	-- LIGHT MAGENTA
+			when "110100" => VALUE := "1010";
+			when "110101" => VALUE := "1010";
+			when "110110" => VALUE := "1011";
+			when "110111" => VALUE := "1011";
+			when "111000" => VALUE := "1110";
+			when "111001" => VALUE := "1110";
+			when "111010" => VALUE := "1111";
+			when "111011" => VALUE := "1111";
+			when "111100" => VALUE := "1110";	-- YELLOW
+			when "111101" => VALUE := "1110";
+			when "111110" => VALUE := "1111";
+			when "111111" => VALUE := "1111";	-- WHITE
 		end case;		
 		return VALUE;		
 end f_luminance;
@@ -425,9 +425,11 @@ begin
 
 				if (green_monitor = '1') then
 					if(adjust_mode = '1') then
+						-- amber 
 						red_pixel := f_luminance(pixel_in);
 						green_pixel := '0' & f_luminance(pixel_in)(3 downto 1);
 					else
+						-- plain radioactive green
 						red_pixel := "0000";
 						green_pixel := f_luminance(pixel_in);
 					end if;

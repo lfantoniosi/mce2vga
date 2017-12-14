@@ -427,11 +427,15 @@ begin
 	begin
 		if (rising_edge(clk)) then				
 			if (hcount(2 downto 0) = "111") then
-				rgb := rgbi(3)&rgbi(0)&rgbi(2)&rgbi(0)&rgbi(1)&rgbi(0);		
-				case(rgb) is
-					when "101000" => pixel <= "100100"; -- BROWN
-					when others => pixel <= rgb;
-				end case;
+				if (rgbi = "0001") then
+					pixel <= "010101"; -- DARK GRAY
+				else				
+					rgb := (rgbi(3)&rgbi(0)&rgbi(2)&rgbi(0)&rgbi(1)&rgbi(0)) and (rgbi(3)&rgbi(3)&rgbi(2)&rgbi(2)&rgbi(1)&rgbi(1));		
+					case(rgb) is
+						when "101000" => pixel <= "100100"; -- BROWN
+						when others => pixel <= rgb;
+					end case;
+				end if;
 			end if;				
 		end if;
 		
