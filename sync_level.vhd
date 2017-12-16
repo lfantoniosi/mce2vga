@@ -13,7 +13,8 @@ entity sync_level is
 		constant double_scan	: std_logic	:= '0';	
 		constant hsync_ticks	: integer := 7;	
 		constant vsync_ticks	: integer := 63;
-		constant	default		: std_logic := '0'
+		constant	default		: std_logic := '0';
+		constant noise_filter: std_logic := '1'
 	);
 	
     port(clk 			: in std_logic;
@@ -85,7 +86,7 @@ begin
 				end if;
 
 			end if;
-		else
+		elsif noise_filter = '1' then
 			peak := 0;
 		end if;
 		
@@ -135,11 +136,9 @@ begin
 				
 				if (vsync = vsync_level) then
 					vblank <= '1';
-				end if;
-				
-			end if;
-			
-		else
+				end if;				
+			end if;			
+		elsif noise_filter = '1' then
 			peak := 0;
 		end if;
 		

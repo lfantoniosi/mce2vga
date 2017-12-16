@@ -3435,414 +3435,6 @@ agreement for further details.
 	)
 )
 (symbol
-	(rect 792 488 984 632)
-	(text "sync_level" (rect 5 0 59 12)(font "Arial" ))
-	(text "ega_sync_level" (rect 8 128 85 140)(font "Arial" ))
-	(port
-		(pt 0 32)
-		(input)
-		(text "clk" (rect 0 0 14 12)(font "Arial" ))
-		(text "clk" (rect 21 27 35 39)(font "Arial" ))
-		(line (pt 0 32)(pt 16 32))
-	)
-	(port
-		(pt 0 48)
-		(input)
-		(text "hsync" (rect 0 0 30 12)(font "Arial" ))
-		(text "hsync" (rect 21 43 51 55)(font "Arial" ))
-		(line (pt 0 48)(pt 16 48))
-	)
-	(port
-		(pt 0 64)
-		(input)
-		(text "vsync" (rect 0 0 31 12)(font "Arial" ))
-		(text "vsync" (rect 21 59 52 71)(font "Arial" ))
-		(line (pt 0 64)(pt 16 64))
-	)
-	(port
-		(pt 0 80)
-		(input)
-		(text "enable" (rect 0 0 31 12)(font "Arial" ))
-		(text "enable" (rect 21 75 52 87)(font "Arial" ))
-		(line (pt 0 80)(pt 16 80))
-	)
-	(port
-		(pt 0 96)
-		(input)
-		(text "adjust[2..0]" (rect 0 0 55 12)(font "Arial" ))
-		(text "adjust[2..0]" (rect 21 91 76 103)(font "Arial" ))
-		(line (pt 0 96)(pt 16 96)(line_width 3))
-	)
-	(port
-		(pt 192 32)
-		(output)
-		(text "vblank" (rect 0 0 33 12)(font "Arial" ))
-		(text "vblank" (rect 144 27 177 39)(font "Arial" ))
-		(line (pt 192 32)(pt 176 32))
-	)
-	(port
-		(pt 192 48)
-		(output)
-		(text "hblank" (rect 0 0 31 12)(font "Arial" ))
-		(text "hblank" (rect 145 43 176 55)(font "Arial" ))
-		(line (pt 192 48)(pt 176 48))
-	)
-	(port
-		(pt 192 64)
-		(output)
-		(text "video_enable" (rect 0 0 64 12)(font "Arial" ))
-		(text "video_enable" (rect 117 59 181 71)(font "Arial" ))
-		(line (pt 192 64)(pt 176 64))
-	)
-	(port
-		(pt 192 80)
-		(output)
-		(text "no_video" (rect 0 0 44 12)(font "Arial" ))
-		(text "no_video" (rect 134 75 178 87)(font "Arial" ))
-		(line (pt 192 80)(pt 176 80))
-	)
-	(parameter
-		"vsync_level"
-		"'0'"
-		""
-		(type "PARAMETER_ENUM")	)
-	(parameter
-		"hsync_level"
-		"'1'"
-		""
-		(type "PARAMETER_ENUM")	)
-	(parameter
-		"double_scan"
-		"'0'"
-		""
-		(type "PARAMETER_ENUM")	)
-	(parameter
-		"hsync_ticks"
-		"132"
-		""
-		(type "PARAMETER_SIGNED_DEC")	)
-	(parameter
-		"vsync_ticks"
-		"6400"
-		""
-		(type "PARAMETER_SIGNED_DEC")	)
-	(parameter
-		"default"
-		"'0'"
-		""
-		(type "PARAMETER_ENUM")	)
-	(drawing
-		(rectangle (rect 16 16 176 128))
-	)
-	(annotation_block (parameter)(rect 472 472 666 570))
-)
-(symbol
-	(rect 792 632 984 776)
-	(text "sync_level" (rect 5 0 59 12)(font "Arial" ))
-	(text "cga_sync_level" (rect 8 128 85 140)(font "Arial" ))
-	(port
-		(pt 0 32)
-		(input)
-		(text "clk" (rect 0 0 14 12)(font "Arial" ))
-		(text "clk" (rect 21 27 35 39)(font "Arial" ))
-		(line (pt 0 32)(pt 16 32))
-	)
-	(port
-		(pt 0 48)
-		(input)
-		(text "hsync" (rect 0 0 30 12)(font "Arial" ))
-		(text "hsync" (rect 21 43 51 55)(font "Arial" ))
-		(line (pt 0 48)(pt 16 48))
-	)
-	(port
-		(pt 0 64)
-		(input)
-		(text "vsync" (rect 0 0 31 12)(font "Arial" ))
-		(text "vsync" (rect 21 59 52 71)(font "Arial" ))
-		(line (pt 0 64)(pt 16 64))
-	)
-	(port
-		(pt 0 80)
-		(input)
-		(text "enable" (rect 0 0 31 12)(font "Arial" ))
-		(text "enable" (rect 21 75 52 87)(font "Arial" ))
-		(line (pt 0 80)(pt 16 80))
-	)
-	(port
-		(pt 0 96)
-		(input)
-		(text "adjust[2..0]" (rect 0 0 55 12)(font "Arial" ))
-		(text "adjust[2..0]" (rect 21 91 76 103)(font "Arial" ))
-		(line (pt 0 96)(pt 16 96)(line_width 3))
-	)
-	(port
-		(pt 192 32)
-		(output)
-		(text "vblank" (rect 0 0 33 12)(font "Arial" ))
-		(text "vblank" (rect 144 27 177 39)(font "Arial" ))
-		(line (pt 192 32)(pt 176 32))
-	)
-	(port
-		(pt 192 48)
-		(output)
-		(text "hblank" (rect 0 0 31 12)(font "Arial" ))
-		(text "hblank" (rect 145 43 176 55)(font "Arial" ))
-		(line (pt 192 48)(pt 176 48))
-	)
-	(port
-		(pt 192 64)
-		(output)
-		(text "video_enable" (rect 0 0 64 12)(font "Arial" ))
-		(text "video_enable" (rect 117 59 181 71)(font "Arial" ))
-		(line (pt 192 64)(pt 176 64))
-	)
-	(port
-		(pt 192 80)
-		(output)
-		(text "no_video" (rect 0 0 44 12)(font "Arial" ))
-		(text "no_video" (rect 134 75 178 87)(font "Arial" ))
-		(line (pt 192 80)(pt 176 80))
-	)
-	(parameter
-		"vsync_level"
-		"'1'"
-		""
-		(type "PARAMETER_ENUM")	)
-	(parameter
-		"hsync_level"
-		"'1'"
-		""
-		(type "PARAMETER_ENUM")	)
-	(parameter
-		"double_scan"
-		"'0'"
-		""
-		(type "PARAMETER_ENUM")	)
-	(parameter
-		"hsync_ticks"
-		"38"
-		""
-		(type "PARAMETER_SIGNED_DEC")	)
-	(parameter
-		"vsync_ticks"
-		"7400"
-		""
-		(type "PARAMETER_SIGNED_DEC")	)
-	(parameter
-		"default"
-		"'1'"
-		""
-		(type "PARAMETER_ENUM")	)
-	(drawing
-		(rectangle (rect 16 16 176 128))
-	)
-	(annotation_block (parameter)(rect 472 616 666 714))
-)
-(symbol
-	(rect 792 776 984 920)
-	(text "sync_level" (rect 5 0 59 12)(font "Arial" ))
-	(text "mda_sync_level" (rect 8 128 89 140)(font "Arial" ))
-	(port
-		(pt 0 32)
-		(input)
-		(text "clk" (rect 0 0 14 12)(font "Arial" ))
-		(text "clk" (rect 21 27 35 39)(font "Arial" ))
-		(line (pt 0 32)(pt 16 32))
-	)
-	(port
-		(pt 0 48)
-		(input)
-		(text "hsync" (rect 0 0 30 12)(font "Arial" ))
-		(text "hsync" (rect 21 43 51 55)(font "Arial" ))
-		(line (pt 0 48)(pt 16 48))
-	)
-	(port
-		(pt 0 64)
-		(input)
-		(text "vsync" (rect 0 0 31 12)(font "Arial" ))
-		(text "vsync" (rect 21 59 52 71)(font "Arial" ))
-		(line (pt 0 64)(pt 16 64))
-	)
-	(port
-		(pt 0 80)
-		(input)
-		(text "enable" (rect 0 0 31 12)(font "Arial" ))
-		(text "enable" (rect 21 75 52 87)(font "Arial" ))
-		(line (pt 0 80)(pt 16 80))
-	)
-	(port
-		(pt 0 96)
-		(input)
-		(text "adjust[2..0]" (rect 0 0 55 12)(font "Arial" ))
-		(text "adjust[2..0]" (rect 21 91 76 103)(font "Arial" ))
-		(line (pt 0 96)(pt 16 96)(line_width 3))
-	)
-	(port
-		(pt 192 32)
-		(output)
-		(text "vblank" (rect 0 0 33 12)(font "Arial" ))
-		(text "vblank" (rect 144 27 177 39)(font "Arial" ))
-		(line (pt 192 32)(pt 176 32))
-	)
-	(port
-		(pt 192 48)
-		(output)
-		(text "hblank" (rect 0 0 31 12)(font "Arial" ))
-		(text "hblank" (rect 145 43 176 55)(font "Arial" ))
-		(line (pt 192 48)(pt 176 48))
-	)
-	(port
-		(pt 192 64)
-		(output)
-		(text "video_enable" (rect 0 0 64 12)(font "Arial" ))
-		(text "video_enable" (rect 117 59 181 71)(font "Arial" ))
-		(line (pt 192 64)(pt 176 64))
-	)
-	(port
-		(pt 192 80)
-		(output)
-		(text "no_video" (rect 0 0 44 12)(font "Arial" ))
-		(text "no_video" (rect 134 75 178 87)(font "Arial" ))
-		(line (pt 192 80)(pt 176 80))
-	)
-	(parameter
-		"vsync_level"
-		"'0'"
-		""
-		(type "PARAMETER_ENUM")	)
-	(parameter
-		"hsync_level"
-		"'1'"
-		""
-		(type "PARAMETER_ENUM")	)
-	(parameter
-		"double_scan"
-		"'0'"
-		""
-		(type "PARAMETER_ENUM")	)
-	(parameter
-		"hsync_ticks"
-		"216"
-		""
-		(type "PARAMETER_SIGNED_DEC")	)
-	(parameter
-		"vsync_ticks"
-		"6400"
-		""
-		(type "PARAMETER_SIGNED_DEC")	)
-	(parameter
-		"default"
-		"'1'"
-		""
-		(type "PARAMETER_ENUM")	)
-	(drawing
-		(rectangle (rect 16 16 176 128))
-	)
-	(annotation_block (parameter)(rect 472 760 666 858))
-)
-(symbol
-	(rect 792 920 984 1064)
-	(text "sync_level" (rect 5 0 59 12)(font "Arial" ))
-	(text "hgc_sync_level" (rect 8 128 85 140)(font "Arial" ))
-	(port
-		(pt 0 32)
-		(input)
-		(text "clk" (rect 0 0 14 12)(font "Arial" ))
-		(text "clk" (rect 21 27 35 39)(font "Arial" ))
-		(line (pt 0 32)(pt 16 32))
-	)
-	(port
-		(pt 0 48)
-		(input)
-		(text "hsync" (rect 0 0 30 12)(font "Arial" ))
-		(text "hsync" (rect 21 43 51 55)(font "Arial" ))
-		(line (pt 0 48)(pt 16 48))
-	)
-	(port
-		(pt 0 64)
-		(input)
-		(text "vsync" (rect 0 0 31 12)(font "Arial" ))
-		(text "vsync" (rect 21 59 52 71)(font "Arial" ))
-		(line (pt 0 64)(pt 16 64))
-	)
-	(port
-		(pt 0 80)
-		(input)
-		(text "enable" (rect 0 0 31 12)(font "Arial" ))
-		(text "enable" (rect 21 75 52 87)(font "Arial" ))
-		(line (pt 0 80)(pt 16 80))
-	)
-	(port
-		(pt 0 96)
-		(input)
-		(text "adjust[2..0]" (rect 0 0 55 12)(font "Arial" ))
-		(text "adjust[2..0]" (rect 21 91 76 103)(font "Arial" ))
-		(line (pt 0 96)(pt 16 96)(line_width 3))
-	)
-	(port
-		(pt 192 32)
-		(output)
-		(text "vblank" (rect 0 0 33 12)(font "Arial" ))
-		(text "vblank" (rect 144 27 177 39)(font "Arial" ))
-		(line (pt 192 32)(pt 176 32))
-	)
-	(port
-		(pt 192 48)
-		(output)
-		(text "hblank" (rect 0 0 31 12)(font "Arial" ))
-		(text "hblank" (rect 145 43 176 55)(font "Arial" ))
-		(line (pt 192 48)(pt 176 48))
-	)
-	(port
-		(pt 192 64)
-		(output)
-		(text "video_enable" (rect 0 0 64 12)(font "Arial" ))
-		(text "video_enable" (rect 117 59 181 71)(font "Arial" ))
-		(line (pt 192 64)(pt 176 64))
-	)
-	(port
-		(pt 192 80)
-		(output)
-		(text "no_video" (rect 0 0 44 12)(font "Arial" ))
-		(text "no_video" (rect 134 75 178 87)(font "Arial" ))
-		(line (pt 192 80)(pt 176 80))
-	)
-	(parameter
-		"vsync_level"
-		"'0'"
-		""
-		(type "PARAMETER_ENUM")	)
-	(parameter
-		"hsync_level"
-		"'1'"
-		""
-		(type "PARAMETER_ENUM")	)
-	(parameter
-		"double_scan"
-		"'0'"
-		""
-		(type "PARAMETER_ENUM")	)
-	(parameter
-		"hsync_ticks"
-		"152"
-		""
-		(type "PARAMETER_SIGNED_DEC")	)
-	(parameter
-		"vsync_ticks"
-		"6400"
-		""
-		(type "PARAMETER_SIGNED_DEC")	)
-	(parameter
-		"default"
-		"'1'"
-		""
-		(type "PARAMETER_ENUM")	)
-	(drawing
-		(rectangle (rect 16 16 176 128))
-	)
-	(annotation_block (parameter)(rect 472 904 666 1002))
-)
-(symbol
 	(rect 1352 360 1576 696)
 	(text "cga_genlock" (rect 5 0 66 12)(font "Arial" ))
 	(text "cga_genlock" (rect 8 320 69 332)(font "Arial" ))
@@ -4940,6 +4532,434 @@ agreement for further details.
 	)
 	(annotation_block (parameter)(rect 1752 872 1972 1054))
 )
+(symbol
+	(rect 792 632 984 776)
+	(text "sync_level" (rect 5 0 59 12)(font "Arial" ))
+	(text "cga_sync_level" (rect 8 128 85 140)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "clk" (rect 0 0 14 12)(font "Arial" ))
+		(text "clk" (rect 21 27 35 39)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "hsync" (rect 0 0 30 12)(font "Arial" ))
+		(text "hsync" (rect 21 43 51 55)(font "Arial" ))
+		(line (pt 0 48)(pt 16 48))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "vsync" (rect 0 0 31 12)(font "Arial" ))
+		(text "vsync" (rect 21 59 52 71)(font "Arial" ))
+		(line (pt 0 64)(pt 16 64))
+	)
+	(port
+		(pt 0 80)
+		(input)
+		(text "enable" (rect 0 0 31 12)(font "Arial" ))
+		(text "enable" (rect 21 75 52 87)(font "Arial" ))
+		(line (pt 0 80)(pt 16 80))
+	)
+	(port
+		(pt 0 96)
+		(input)
+		(text "adjust[2..0]" (rect 0 0 55 12)(font "Arial" ))
+		(text "adjust[2..0]" (rect 21 91 76 103)(font "Arial" ))
+		(line (pt 0 96)(pt 16 96)(line_width 3))
+	)
+	(port
+		(pt 192 32)
+		(output)
+		(text "vblank" (rect 0 0 33 12)(font "Arial" ))
+		(text "vblank" (rect 144 27 171 39)(font "Arial" ))
+		(line (pt 192 32)(pt 176 32))
+	)
+	(port
+		(pt 192 48)
+		(output)
+		(text "hblank" (rect 0 0 31 12)(font "Arial" ))
+		(text "hblank" (rect 145 43 171 55)(font "Arial" ))
+		(line (pt 192 48)(pt 176 48))
+	)
+	(port
+		(pt 192 64)
+		(output)
+		(text "video_enable" (rect 0 0 64 12)(font "Arial" ))
+		(text "video_enable" (rect 117 59 171 71)(font "Arial" ))
+		(line (pt 192 64)(pt 176 64))
+	)
+	(port
+		(pt 192 80)
+		(output)
+		(text "no_video" (rect 0 0 44 12)(font "Arial" ))
+		(text "no_video" (rect 134 75 171 87)(font "Arial" ))
+		(line (pt 192 80)(pt 176 80))
+	)
+	(parameter
+		"vsync_level"
+		"'1'"
+		""
+		(type "PARAMETER_ENUM")	)
+	(parameter
+		"hsync_level"
+		"'1'"
+		""
+		(type "PARAMETER_ENUM")	)
+	(parameter
+		"double_scan"
+		"'0'"
+		""
+		(type "PARAMETER_ENUM")	)
+	(parameter
+		"hsync_ticks"
+		"38"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"vsync_ticks"
+		"7400"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"default"
+		"'1'"
+		""
+		(type "PARAMETER_ENUM")	)
+	(parameter
+		"noise_filter"
+		"'1'"
+		""
+		(type "PARAMETER_ENUM")	)
+	(drawing
+		(rectangle (rect 16 16 176 128))
+	)
+	(annotation_block (parameter)(rect 472 616 664 728))
+)
+(symbol
+	(rect 792 776 984 920)
+	(text "sync_level" (rect 5 0 59 12)(font "Arial" ))
+	(text "mda_sync_level" (rect 8 128 89 140)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "clk" (rect 0 0 14 12)(font "Arial" ))
+		(text "clk" (rect 21 27 35 39)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "hsync" (rect 0 0 30 12)(font "Arial" ))
+		(text "hsync" (rect 21 43 51 55)(font "Arial" ))
+		(line (pt 0 48)(pt 16 48))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "vsync" (rect 0 0 31 12)(font "Arial" ))
+		(text "vsync" (rect 21 59 52 71)(font "Arial" ))
+		(line (pt 0 64)(pt 16 64))
+	)
+	(port
+		(pt 0 80)
+		(input)
+		(text "enable" (rect 0 0 31 12)(font "Arial" ))
+		(text "enable" (rect 21 75 52 87)(font "Arial" ))
+		(line (pt 0 80)(pt 16 80))
+	)
+	(port
+		(pt 0 96)
+		(input)
+		(text "adjust[2..0]" (rect 0 0 55 12)(font "Arial" ))
+		(text "adjust[2..0]" (rect 21 91 76 103)(font "Arial" ))
+		(line (pt 0 96)(pt 16 96)(line_width 3))
+	)
+	(port
+		(pt 192 32)
+		(output)
+		(text "vblank" (rect 0 0 33 12)(font "Arial" ))
+		(text "vblank" (rect 144 27 171 39)(font "Arial" ))
+		(line (pt 192 32)(pt 176 32))
+	)
+	(port
+		(pt 192 48)
+		(output)
+		(text "hblank" (rect 0 0 31 12)(font "Arial" ))
+		(text "hblank" (rect 145 43 171 55)(font "Arial" ))
+		(line (pt 192 48)(pt 176 48))
+	)
+	(port
+		(pt 192 64)
+		(output)
+		(text "video_enable" (rect 0 0 64 12)(font "Arial" ))
+		(text "video_enable" (rect 117 59 171 71)(font "Arial" ))
+		(line (pt 192 64)(pt 176 64))
+	)
+	(port
+		(pt 192 80)
+		(output)
+		(text "no_video" (rect 0 0 44 12)(font "Arial" ))
+		(text "no_video" (rect 134 75 171 87)(font "Arial" ))
+		(line (pt 192 80)(pt 176 80))
+	)
+	(parameter
+		"vsync_level"
+		"'0'"
+		""
+		(type "PARAMETER_ENUM")	)
+	(parameter
+		"hsync_level"
+		"'1'"
+		""
+		(type "PARAMETER_ENUM")	)
+	(parameter
+		"double_scan"
+		"'0'"
+		""
+		(type "PARAMETER_ENUM")	)
+	(parameter
+		"hsync_ticks"
+		"216"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"vsync_ticks"
+		"6400"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"default"
+		"'1'"
+		""
+		(type "PARAMETER_ENUM")	)
+	(parameter
+		"noise_filter"
+		"'1'"
+		""
+		(type "PARAMETER_ENUM")	)
+	(drawing
+		(rectangle (rect 16 16 176 128))
+	)
+	(annotation_block (parameter)(rect 472 760 664 872))
+)
+(symbol
+	(rect 800 920 992 1064)
+	(text "sync_level" (rect 5 0 59 12)(font "Arial" ))
+	(text "hgc_sync_level" (rect 8 128 85 140)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "clk" (rect 0 0 14 12)(font "Arial" ))
+		(text "clk" (rect 21 27 35 39)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "hsync" (rect 0 0 30 12)(font "Arial" ))
+		(text "hsync" (rect 21 43 51 55)(font "Arial" ))
+		(line (pt 0 48)(pt 16 48))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "vsync" (rect 0 0 31 12)(font "Arial" ))
+		(text "vsync" (rect 21 59 52 71)(font "Arial" ))
+		(line (pt 0 64)(pt 16 64))
+	)
+	(port
+		(pt 0 80)
+		(input)
+		(text "enable" (rect 0 0 31 12)(font "Arial" ))
+		(text "enable" (rect 21 75 52 87)(font "Arial" ))
+		(line (pt 0 80)(pt 16 80))
+	)
+	(port
+		(pt 0 96)
+		(input)
+		(text "adjust[2..0]" (rect 0 0 55 12)(font "Arial" ))
+		(text "adjust[2..0]" (rect 21 91 76 103)(font "Arial" ))
+		(line (pt 0 96)(pt 16 96)(line_width 3))
+	)
+	(port
+		(pt 192 32)
+		(output)
+		(text "vblank" (rect 0 0 33 12)(font "Arial" ))
+		(text "vblank" (rect 144 27 171 39)(font "Arial" ))
+		(line (pt 192 32)(pt 176 32))
+	)
+	(port
+		(pt 192 48)
+		(output)
+		(text "hblank" (rect 0 0 31 12)(font "Arial" ))
+		(text "hblank" (rect 145 43 171 55)(font "Arial" ))
+		(line (pt 192 48)(pt 176 48))
+	)
+	(port
+		(pt 192 64)
+		(output)
+		(text "video_enable" (rect 0 0 64 12)(font "Arial" ))
+		(text "video_enable" (rect 117 59 171 71)(font "Arial" ))
+		(line (pt 192 64)(pt 176 64))
+	)
+	(port
+		(pt 192 80)
+		(output)
+		(text "no_video" (rect 0 0 44 12)(font "Arial" ))
+		(text "no_video" (rect 134 75 171 87)(font "Arial" ))
+		(line (pt 192 80)(pt 176 80))
+	)
+	(parameter
+		"vsync_level"
+		"'0'"
+		""
+		(type "PARAMETER_ENUM")	)
+	(parameter
+		"hsync_level"
+		"'1'"
+		""
+		(type "PARAMETER_ENUM")	)
+	(parameter
+		"double_scan"
+		"'0'"
+		""
+		(type "PARAMETER_ENUM")	)
+	(parameter
+		"hsync_ticks"
+		"152"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"vsync_ticks"
+		"6400"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"default"
+		"'1'"
+		""
+		(type "PARAMETER_ENUM")	)
+	(parameter
+		"noise_filter"
+		"'1'"
+		""
+		(type "PARAMETER_ENUM")	)
+	(drawing
+		(rectangle (rect 16 16 176 128))
+	)
+	(annotation_block (parameter)(rect 480 904 672 1016))
+)
+(symbol
+	(rect 792 488 984 632)
+	(text "sync_level" (rect 5 0 59 12)(font "Arial" ))
+	(text "ega_sync_level" (rect 8 128 85 140)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "clk" (rect 0 0 14 12)(font "Arial" ))
+		(text "clk" (rect 21 27 35 39)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "hsync" (rect 0 0 30 12)(font "Arial" ))
+		(text "hsync" (rect 21 43 51 55)(font "Arial" ))
+		(line (pt 0 48)(pt 16 48))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "vsync" (rect 0 0 31 12)(font "Arial" ))
+		(text "vsync" (rect 21 59 52 71)(font "Arial" ))
+		(line (pt 0 64)(pt 16 64))
+	)
+	(port
+		(pt 0 80)
+		(input)
+		(text "enable" (rect 0 0 31 12)(font "Arial" ))
+		(text "enable" (rect 21 75 52 87)(font "Arial" ))
+		(line (pt 0 80)(pt 16 80))
+	)
+	(port
+		(pt 0 96)
+		(input)
+		(text "adjust[2..0]" (rect 0 0 55 12)(font "Arial" ))
+		(text "adjust[2..0]" (rect 21 91 76 103)(font "Arial" ))
+		(line (pt 0 96)(pt 16 96)(line_width 3))
+	)
+	(port
+		(pt 192 32)
+		(output)
+		(text "vblank" (rect 0 0 33 12)(font "Arial" ))
+		(text "vblank" (rect 144 27 177 39)(font "Arial" ))
+		(line (pt 192 32)(pt 176 32))
+	)
+	(port
+		(pt 192 48)
+		(output)
+		(text "hblank" (rect 0 0 31 12)(font "Arial" ))
+		(text "hblank" (rect 145 43 176 55)(font "Arial" ))
+		(line (pt 192 48)(pt 176 48))
+	)
+	(port
+		(pt 192 64)
+		(output)
+		(text "video_enable" (rect 0 0 64 12)(font "Arial" ))
+		(text "video_enable" (rect 117 59 181 71)(font "Arial" ))
+		(line (pt 192 64)(pt 176 64))
+	)
+	(port
+		(pt 192 80)
+		(output)
+		(text "no_video" (rect 0 0 44 12)(font "Arial" ))
+		(text "no_video" (rect 134 75 178 87)(font "Arial" ))
+		(line (pt 192 80)(pt 176 80))
+	)
+	(parameter
+		"vsync_level"
+		"'0'"
+		""
+		(type "PARAMETER_ENUM")	)
+	(parameter
+		"hsync_level"
+		"'1'"
+		""
+		(type "PARAMETER_ENUM")	)
+	(parameter
+		"double_scan"
+		"'0'"
+		""
+		(type "PARAMETER_ENUM")	)
+	(parameter
+		"hsync_ticks"
+		"132"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"vsync_ticks"
+		"6400"
+		""
+		(type "PARAMETER_SIGNED_DEC")	)
+	(parameter
+		"default"
+		"'0'"
+		""
+		(type "PARAMETER_ENUM")	)
+	(parameter
+		"noise_filter"
+		"'0'"
+		""
+		(type "PARAMETER_ENUM")	)
+	(drawing
+		(rectangle (rect 16 16 176 128))
+	)
+	(annotation_block (parameter)(rect 472 472 664 584))
+)
 (connector
 	(text "SRAM_ADDR[17..0]" (rect 2930 792 3030 804)(font "Arial" ))
 	(pt 2920 808)
@@ -6011,26 +6031,6 @@ agreement for further details.
 	(pt 792 856)
 )
 (connector
-	(text "EGA_CLK" (rect 674 936 723 948)(font "Arial" ))
-	(pt 672 952)
-	(pt 792 952)
-)
-(connector
-	(text "H" (rect 674 952 682 964)(font "Arial" ))
-	(pt 672 968)
-	(pt 792 968)
-)
-(connector
-	(text "V" (rect 674 968 682 980)(font "Arial" ))
-	(pt 672 984)
-	(pt 792 984)
-)
-(connector
-	(text "HGC_SELECT" (rect 674 984 745 996)(font "Arial" ))
-	(pt 672 1000)
-	(pt 792 1000)
-)
-(connector
 	(text "EGA_VBLANK" (rect 994 504 1064 516)(font "Arial" ))
 	(pt 984 520)
 	(pt 1096 520)
@@ -6089,26 +6089,6 @@ agreement for further details.
 	(text "MDA_NO_VIDEO" (rect 994 840 1080 852)(font "Arial" ))
 	(pt 984 856)
 	(pt 1096 856)
-)
-(connector
-	(text "HGC_VBLANK" (rect 994 936 1067 948)(font "Arial" ))
-	(pt 984 952)
-	(pt 1096 952)
-)
-(connector
-	(text "HGC_HBLANK" (rect 994 952 1068 964)(font "Arial" ))
-	(pt 984 968)
-	(pt 1096 968)
-)
-(connector
-	(text "HGC_ENABLE" (rect 994 968 1067 980)(font "Arial" ))
-	(pt 984 984)
-	(pt 1096 984)
-)
-(connector
-	(text "HGC_NO_VIDEO" (rect 994 984 1081 996)(font "Arial" ))
-	(pt 984 1000)
-	(pt 1096 1000)
 )
 (connector
 	(text "EGA_CLK" (rect 674 504 723 516)(font "Arial" ))
@@ -6242,12 +6222,6 @@ agreement for further details.
 	(text "ADJUST_MODE" (rect 266 80 346 92)(font "Arial" ))
 	(pt 248 96)
 	(pt 384 96)
-)
-(connector
-	(text "HGC_HTICKS[2..0]" (rect 674 1000 770 1012)(font "Arial" ))
-	(pt 792 1016)
-	(pt 672 1016)
-	(bus)
 )
 (connector
 	(text "MDA_HTICKS[2..0]" (rect 674 856 769 868)(font "Arial" ))
@@ -7449,6 +7423,52 @@ agreement for further details.
 	(text "HGC_RD_REQ" (rect 3586 1208 3662 1220)(font "Arial" ))
 	(pt 3576 1224)
 	(pt 3704 1224)
+)
+(connector
+	(text "HGC_VBLANK" (rect 1002 936 1075 948)(font "Arial" ))
+	(pt 992 952)
+	(pt 1104 952)
+)
+(connector
+	(text "HGC_HBLANK" (rect 1002 952 1076 964)(font "Arial" ))
+	(pt 992 968)
+	(pt 1104 968)
+)
+(connector
+	(text "HGC_ENABLE" (rect 1002 968 1075 980)(font "Arial" ))
+	(pt 992 984)
+	(pt 1104 984)
+)
+(connector
+	(text "HGC_NO_VIDEO" (rect 1002 984 1089 996)(font "Arial" ))
+	(pt 992 1000)
+	(pt 1104 1000)
+)
+(connector
+	(text "EGA_CLK" (rect 682 936 731 948)(font "Arial" ))
+	(pt 680 952)
+	(pt 800 952)
+)
+(connector
+	(text "H" (rect 682 952 690 964)(font "Arial" ))
+	(pt 680 968)
+	(pt 800 968)
+)
+(connector
+	(text "V" (rect 682 968 690 980)(font "Arial" ))
+	(pt 680 984)
+	(pt 800 984)
+)
+(connector
+	(text "HGC_SELECT" (rect 682 984 753 996)(font "Arial" ))
+	(pt 680 1000)
+	(pt 800 1000)
+)
+(connector
+	(text "HGC_HTICKS[2..0]" (rect 682 1000 778 1012)(font "Arial" ))
+	(pt 680 1016)
+	(pt 800 1016)
+	(bus)
 )
 (text "PLL" (rect 488 16 509 30)(font "Arial" (font_size 8)))
 (text "SYNC DETECT" (rect 488 456 570 470)(font "Arial" (font_size 8)))

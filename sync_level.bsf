@@ -117,6 +117,11 @@ agreement for further details.
 		"'0'"
 		""
 		(type "PARAMETER_ENUM")	)
+	(parameter
+		"noise_filter"
+		"'1'"
+		""
+		(type "PARAMETER_ENUM")	)
 	(drawing
 		(rectangle (rect 16 16 176 128)(line_width 1))
 	)
