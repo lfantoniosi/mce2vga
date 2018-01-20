@@ -113,12 +113,13 @@ entity vga_video is
 				
 		sram_clk				: in std_logic;
 		no_video				: in std_logic;
-		adj_x					: in unsigned(4 downto 0);
-		adj_y					: in unsigned(4 downto 0);
 		max_col				: in unsigned(9 downto 0);
 		max_row				: in unsigned(9 downto 0);
 		adjust_mode			: in std_logic;
-		green_monitor		: in std_logic
+		green_monitor		: in std_logic;
+		osd_ctrl				: out unsigned(8 downto 0);
+		osd_enable			: out std_logic;
+		osd_bit				: in std_logic
     );
 end vga_video;
 
@@ -133,8 +134,8 @@ signal hblank, vblank							: std_logic;
 signal merge_rows									: std_logic;
 signal blank										: std_logic;
 
-signal start_row									: unsigned(9 downto 0);
-signal start_col									: unsigned(9 downto 0);
+--signal start_row									: unsigned(9 downto 0);
+--signal start_col									: unsigned(9 downto 0);
 
 function f_luminance(pattern: unsigned) return unsigned;
 function f_luminance(pattern: unsigned) return unsigned is
@@ -211,13 +212,13 @@ end f_luminance;
 
 begin
 
-	process (clk, adj_y, adj_x)
-	begin
-		if(rising_edge(clk)) then
-			start_row <= "00000" & adj_y;
-			start_col <= "00010" & adj_x;			
-		end if;
-	end process;
+--	process (clk, adj_y, adj_x)
+--	begin
+--		if(rising_edge(clk)) then
+--			start_row <= "00000" & adj_y;
+--			start_col <= "00010" & adj_x;			
+--		end if;
+--	end process;
 	
 
 
@@ -327,7 +328,7 @@ begin
 			if (rising_edge(clk)) then
 				if (hcount = (hor_active_video + hor_front_porch + hor_sync_pulse)) then
 				
-					col_number <= start_col;
+					col_number <= to_unsigned(8, col_number'length);
 					
 				elsif (hcount < hor_active_video) then
 									
@@ -350,7 +351,7 @@ begin
 										
 					if (vcount = (vert_active_video + vert_front_porch + vert_sync_pulse)) then
 						
-						row_number <= start_row;
+						row_number <= to_unsigned(8, col_number'length);
 						
 					elsif (vcount < vert_active_video) then
 					
@@ -393,7 +394,7 @@ begin
 	end process;
 
 	-- pixel color
-	process(clk, enable, hcount, vcount, pixel_in, col_number, merge_rows) 
+	process(clk, enable, hcount, vcount, pixel_in, col_number, merge_rows, osd_bit) 
 	variable osd, osd_mask: std_logic;
 	--variable prev_row : ram_type;
 	variable prev_pixel : unsigned(5 downto 0);
@@ -412,17 +413,6 @@ begin
 				
 			elsif (rising_edge(clk)) then
 				
-				--prev_pixel := prev_row(to_integer(col_number));
-				--prev_row(to_integer(col_number)) := pixel_in;
-				
-				--if (merge_rows = '1') then				
-				--	red_pixel := to_unsigned(to_integer(prev_pixel(5 downto 4)) + to_integer(pixel_in(5 downto 4)), 3) & '0';
-				--	green_pixel := to_unsigned(to_integer(prev_pixel(3 downto 2)) + to_integer(pixel_in(3 downto 2)), 3) & '0';
-				--	blue_pixel := to_unsigned(to_integer(prev_pixel(1 downto 0)) + to_integer(pixel_in(1 downto 0)), 3) & '0';
-				--else
-				--	--	pixel := pixel_in;				
-				--end if;	
-
 				if (green_monitor = '1') then
 					if(adjust_mode = '1') then
 						-- amber 
@@ -458,13 +448,7 @@ begin
 						end if;
 					
 					end if;
-					
-					if (no_video = '1') then				
-						red_pixel := "0000";
-						green_pixel := "0000";
-						blue_pixel := "0000";
-					end if;								
-					
+											
 					if (mono = '0' or scanline = '1') then
 						red_pixel(1) := red_pixel(3) or red_pixel(2);
 						green_pixel(1) := green_pixel(3) or green_pixel(2);
@@ -476,7 +460,6 @@ begin
 					blue_pixel(0) := blue_pixel(3) or blue_pixel(2);
 				
 				end if;
-
 				
 				if (scanline = '1' and mono = '0' and scale_mode = 1) then
 				
@@ -488,6 +471,19 @@ begin
 						
 					end if;					
 					
+				end if;
+				
+					
+				if (no_video = '1') then				
+					red_pixel := "0000";
+					green_pixel := "0000";
+					blue_pixel := "0000";
+				end if;						
+				
+				if (osd_bit = '1') then
+					red_pixel := "1111";
+					green_pixel := "0000";
+					blue_pixel := "1111";
 				end if;
 					
 				r_out <= red_pixel and (blank&blank&blank&blank);
@@ -526,5 +522,16 @@ begin
 			blank <= videoh and videov;
 		end if;
 	end process;	
+	
+	process (clk, enable, col_number, row_number)
+	begin
+		if (rising_edge(clk)) then
+			osd_enable <= '0';
+			if (vcount(9 downto 2) < 8 and hcount(9 downto 2) < 64) then
+				osd_ctrl <= vcount(4 downto 2) & hcount(7 downto 2);
+				osd_enable <= '1';
+			end if;
+		end if;
+	end process;		
 
 end behavioral;

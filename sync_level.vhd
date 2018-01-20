@@ -10,7 +10,6 @@ entity sync_level is
 	generic(
 		constant vsync_level	: std_logic	:= '1';
 		constant hsync_level	: std_logic	:= '1';
-		constant double_scan	: std_logic	:= '0';	
 		constant hsync_ticks	: integer := 7;	
 		constant vsync_ticks	: integer := 63;
 		constant	default		: std_logic := '0';

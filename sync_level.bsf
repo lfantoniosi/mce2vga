@@ -98,11 +98,6 @@ agreement for further details.
 		""
 		(type "PARAMETER_ENUM")	)
 	(parameter
-		"double_scan"
-		"'0'"
-		""
-		(type "PARAMETER_ENUM")	)
-	(parameter
 		"hsync_ticks"
 		"7"
 		""
