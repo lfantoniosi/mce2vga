@@ -119,7 +119,9 @@ entity vga_video is
 		green_monitor		: in std_logic;
 		osd_ctrl				: out unsigned(8 downto 0);
 		osd_enable			: out std_logic;
-		osd_bit				: in std_logic
+		osd_bit				: in std_logic;
+		osd_active			: in std_logic;
+		osd_value			: in unsigned(5 downto 0)
     );
 end vga_video;
 
@@ -479,11 +481,26 @@ begin
 					green_pixel := "0000";
 					blue_pixel := "0000";
 				end if;						
-				
-				if (osd_bit = '1') then
-					red_pixel := "1111";
-					green_pixel := "0000";
-					blue_pixel := "1111";
+				if (osd_active = '1') then
+					
+					if (osd_bit = '1') then
+						red_pixel := "1111";
+						green_pixel := "0000";
+						blue_pixel := "1111";
+					end if;
+					
+					if (vcount(9 downto 2) > 8 and vcount(9 downto 2) < 12 and hcount(9 downto 2) < 63) then
+						if (hcount(9 downto 2) >= osd_value) then
+							red_pixel := "1111";
+							green_pixel := "0000";
+							blue_pixel := "1111";							
+						else
+							red_pixel := "0000";
+							green_pixel := "1111";
+							blue_pixel := "0000";														
+						end if;
+						
+					end if;
 				end if;
 					
 				r_out <= red_pixel and (blank&blank&blank&blank);

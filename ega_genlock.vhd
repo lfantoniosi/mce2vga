@@ -58,7 +58,7 @@ begin
 		if (rising_edge(clk)) then	
 			if (enable = '1') then
 				s_col_begin <= to_integer(left_border);
-				s_col_end <= to_integer(left_border) + 752;
+				s_col_end <= to_integer(left_border) + 664;
 				s_row_begin <= to_integer(top_border);
 				s_row_end <= to_integer(top_border) + 382;
 				sample_adj <= to_integer(samples);

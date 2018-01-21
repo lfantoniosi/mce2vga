@@ -21,9 +21,9 @@ agreement for further details.
 */
 (header "symbol" (version "1.1"))
 (symbol
-	(rect 16 16 216 192)
+	(rect 16 16 216 224)
 	(text "ctrl_params" (rect 5 0 53 12)(font "Arial" ))
-	(text "inst" (rect 8 160 20 172)(font "Arial" ))
+	(text "inst" (rect 8 192 20 204)(font "Arial" ))
 	(port
 		(pt 0 32)
 		(input)
@@ -122,6 +122,13 @@ agreement for further details.
 		(text "osd_ctrl[1..0]" (rect 129 139 179 151)(font "Arial" ))
 		(line (pt 200 144)(pt 184 144)(line_width 3))
 	)
+	(port
+		(pt 200 160)
+		(output)
+		(text "osd_value[5..0]" (rect 0 0 61 12)(font "Arial" ))
+		(text "osd_value[5..0]" (rect 118 155 179 167)(font "Arial" ))
+		(line (pt 200 160)(pt 184 160)(line_width 3))
+	)
 	(parameter
 		"c_phase"
 		"1"
@@ -143,7 +150,7 @@ agreement for further details.
 		""
 		(type "PARAMETER_SIGNED_DEC")	)
 	(drawing
-		(rectangle (rect 16 16 184 160)(line_width 1))
+		(rectangle (rect 16 16 184 192)(line_width 1))
 	)
 	(annotation_block (parameter)(rect 216 -64 316 16))
 )

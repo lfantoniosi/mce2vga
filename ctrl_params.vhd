@@ -26,7 +26,8 @@ entity ctrl_params is
 		hsync					: out unsigned(7 downto 0);
 		vsync					: out unsigned(13 downto 0);		
 		osd_active			: out	std_logic;
-		osd_ctrl				: out	unsigned(1 downto 0)
+		osd_ctrl				: out	unsigned(1 downto 0);
+		osd_value			: out unsigned(5 downto 0)
 		);
 			
 end ctrl_params;
@@ -71,11 +72,15 @@ begin
 		if (rising_edge(clk)) then		
 			if (s_left_pressed = '1') then
 				if (s_cur_ctrl = 2) then
-					s_phase <= s_phase - 1;
+					if (s_phase > 0) then
+						s_phase <= s_phase - 1;
+					end if;
 				end if;
 			elsif (s_right_pressed = '1') then
 				if (s_cur_ctrl = 2) then
-					s_phase <= s_phase + 1;
+					if (s_phase < 7) then
+						s_phase <= s_phase + 1;
+					end if;
 				end if;
 			end if;
 		end if;						
@@ -86,13 +91,13 @@ begin
 		if (rising_edge(clk)) then		
 			if (s_left_pressed = '1') then
 				if (s_cur_ctrl = 3) then
-					if (s_samples > 1) then
+					if (s_samples > 0) then
 						s_samples <= s_samples - 1;
 					end if;
 				end if;
 			elsif (s_right_pressed = '1') then
 				if (s_cur_ctrl = 3) then
-					if (s_samples < 6) then
+					if (s_samples < 7) then
 						s_samples <= s_samples + 1;
 					end if;
 				end if;
@@ -124,7 +129,7 @@ begin
 		if (rising_edge(clk)) then		
 			if (s_left_pressed = '1') then
 				if (s_cur_ctrl = 1) then
-					if (s_top_border < 128) then
+					if (s_top_border < 63) then
 						s_top_border <= s_top_border + 1;
 					end if;
 				end if;
@@ -255,6 +260,25 @@ begin
 			
 		end if;
 	end process;	
+	
+	process(clk, s_phase, s_samples, s_top_border, s_left_border, s_cur_ctrl)
+	begin
+		if (rising_edge(clk)) then			
+			case s_cur_ctrl is
+				when 0 =>
+					osd_value <= to_unsigned(63 - to_integer(s_left_border(7 downto 2)), 6);
+				when 1 =>
+					osd_value <= to_unsigned(63 - to_integer(s_top_border(5 downto 0)), 6);
+				when 2 =>
+					osd_value <= s_phase & s_phase;
+				when 3 =>
+					osd_value <= s_samples  & s_samples;
+				when others =>
+					osd_value <= (others => '0');
+			end case;
+		end if;
+	end process;	
+
 	
 	phase <=  s_phase;
 	samples <= s_samples;
