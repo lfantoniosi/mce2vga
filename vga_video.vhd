@@ -451,15 +451,15 @@ begin
 					
 					end if;
 											
-					if (mono = '0' or scanline = '1') then
-						red_pixel(1) := red_pixel(3) or red_pixel(2);
-						green_pixel(1) := green_pixel(3) or green_pixel(2);
-						blue_pixel(1) := blue_pixel(3) or blue_pixel(2);					
-					end if;
+					--if (mono = '0' or scanline = '1') then
+					--	red_pixel(1) := red_pixel(3) or red_pixel(2);
+					--	green_pixel(1) := green_pixel(3) or green_pixel(2);
+					--	blue_pixel(1) := blue_pixel(3) or blue_pixel(2);					
+					--end if;
 
-					red_pixel(0) := red_pixel(3) or red_pixel(2);
-					green_pixel(0) := green_pixel(3) or green_pixel(2);
-					blue_pixel(0) := blue_pixel(3) or blue_pixel(2);
+					--red_pixel(0) := red_pixel(3) or red_pixel(2);
+					--green_pixel(0) := green_pixel(3) or green_pixel(2);
+					--blue_pixel(0) := blue_pixel(3) or blue_pixel(2);
 				
 				end if;
 				

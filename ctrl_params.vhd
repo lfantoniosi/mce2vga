@@ -244,7 +244,7 @@ begin
 	end process;	
 
 	process(clk, down_btn, up_btn, left_btn, right_btn, enable)
-	variable peak: integer range 0 to 128*1024*1024 := 0;
+	variable peak: integer range 0 to 256*1024*1024 := 0;
 	begin
 		if (rising_edge(clk)) then			
 			osd_active <= '0';
@@ -255,7 +255,7 @@ begin
 			end if;
 			
 			if (down_btn = '1' or up_btn = '1' or left_btn = '1' or right_btn = '1') then
-				peak := 128*1024*1024-1;
+				peak := 256*1024*1024-1;
 			end if;
 			
 		end if;
