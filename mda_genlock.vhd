@@ -30,7 +30,10 @@ entity mda_genlock is
 		
 		samples				: in unsigned(2 downto 0);
 		top_border			: in unsigned(7 downto 0);
-		left_border 		: in unsigned(7 downto 0)			
+		left_border 		: in unsigned(7 downto 0);
+		r  					: in std_logic;
+		g   					: in std_logic;
+		b  					: in std_logic		
 );
 			
 end mda_genlock;
@@ -47,6 +50,10 @@ signal s_col_begin	: integer range 0 to 2048 := 0;
 signal s_col_end		: integer range 0 to 2048 := 760;
 signal s_row_begin	: integer range 0 to 2048 := 0;
 signal s_row_end		: integer range 0 to 2048 := 382;
+
+signal rgbi				: unsigned (3 downto 0);
+signal mda_tick	 	: unsigned (13 downto 0);
+
 
 begin
 
@@ -66,6 +73,17 @@ begin
 	-- colum counter
 	process(clk, hblank)
 	begin
+		if (rising_edge(clk)) then
+			if (hblank = '1') then
+				mda_tick <= (others => '0');
+			else
+				mda_tick <= mda_tick + 1;
+			end if;
+		end if;
+	end process;		
+	
+	process(clk, hblank, mda_tick)
+	begin
 		
 			if (rising_edge(clk)) then
 			
@@ -75,7 +93,7 @@ begin
 						max_col <= to_unsigned(807, max_col'length);
 					end if;						
 					hcount <= (others => '0');
-				else
+				else --if (mda_tick(10 downto 0) /= "11111111111") then
 					hcount <= hcount + 1;					
 				end if;
 				
@@ -166,15 +184,14 @@ begin
 	variable i : integer range 0 to 15;
 	begin
 		if (rising_edge(clk)) then	
-			if(video = '1') then
-				i := i + 1;
-			end if;
 			if (hcount(2 downto 0) = "110") then
 					vi(1) <= '0';
 					if (i > sample_adj) then
 						vi(1) <= '1';
 					end if;
 					i := 0;
+			elsif(video = '1') then --  and hcount(2 downto 0) /= "000") then
+				i := i + 1;
 			end if;			
 		end if;		
 	end process;
@@ -183,28 +200,99 @@ begin
 	variable i : integer range 0 to 15;
 	begin
 		if (rising_edge(clk)) then	
-			if(intensity = '1') then
-				i := i + 1;
-			end if;
 			if (hcount(2 downto 0) = "110") then
 				vi(0) <= '0';
 				if (i > sample_adj) then
 					vi(0) <= '1';
 				end if;
 				i := 0;
+			elsif(intensity = '1' and hcount(2 downto 0) /= "000") then
+				i := i + 1;
 			end if;
 		end if;		
 	end process;
 	
+	process(clk, hcount, r, sample_adj) 
+	variable i : integer range 0 to 15;
+	begin
+		if (rising_edge(clk)) then				
+			if (hcount(2 downto 0) = "110") then
+				rgbi(3) <= '0';
+				if (i > sample_adj) then
+					rgbi(3) <= '1';
+				end if;
+				i := 0;
+			elsif(r = '1' and hcount(2 downto 0) /= "000") then
+				i := i + 1;
+			end if;			
+		end if;		
+	end process;	
+	
+	process(clk, hcount, g, sample_adj) 
+	variable i : integer range 0 to 15;
+	begin
+		if (rising_edge(clk)) then	
+			if (hcount(2 downto 0) = "110") then
+				rgbi(2) <= '0';
+				if (i > sample_adj) then
+					rgbi(2) <= '1';
+				end if;
+				i := 0;
+			elsif(g = '1' and hcount(2 downto 0) /= "000") then
+				i := i + 1;
+			end if;			
+		end if;		
+	end process;
+
+	process(clk, hcount, b, sample_adj) 
+	variable i : integer range 0 to 15;
+	begin
+		if (rising_edge(clk)) then				
+			if (hcount(2 downto 0) = "110") then
+				rgbi(1) <= '0';
+				if (i > sample_adj) then
+					rgbi(1) <= '1';
+				end if;
+				i := 0;
+			elsif(b = '1' and hcount(2 downto 0) /= "000") then
+				i := i + 1;
+			end if;		
+		end if;		
+	end process;	
+	
+	process(clk, hcount, intensity, sample_adj) 
+	variable i : integer range 0 to 15;
+	begin
+		if (rising_edge(clk)) then				
+			if (hcount(2 downto 0) = "110") then
+				rgbi(0) <= '0';
+				if (i > sample_adj) then
+					rgbi(0) <= '1';
+				end if;
+				i := 0;
+			elsif(intensity = '1' and hcount(2 downto 0) /= "000") then
+				i := i + 1;
+			end if;			
+		end if;		
+	end process;		
+	
 	process(clk, vi) 
-	variable rgb : unsigned(5 downto 0);
-	variable mask : unsigned(5 downto 0);
+	variable rgb : unsigned(5 downto 0);		
 	begin
 	
 		if (rising_edge(clk)) then
 		
 			if (hcount(2 downto 0) = "111") then
-				pixel <= vi(1)&vi(0)&vi(1)&vi(0)&vi(1)&vi(0);
+			
+				if (rgbi(3 downto 1) /= "000") then
+					rgb := (rgbi(3)&rgbi(0)&rgbi(2)&rgbi(0)&rgbi(1)&rgbi(0)) and (rgbi(3)&rgbi(3)&rgbi(2)&rgbi(2)&rgbi(1)&rgbi(1));		
+					case(rgb) is
+						when "101000" => pixel <= "100100"; -- BROWN
+						when others => pixel <= rgb;
+					end case;
+				else				
+					pixel <= vi(1)&vi(0)&vi(1)&vi(0)&vi(1)&vi(0);
+				end if;
 			end if;
 		end if;
 		

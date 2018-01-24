@@ -438,11 +438,13 @@ begin
 						
 							if (adjust_mode = '1') then
 								-- amber
-								green_pixel := '0' & green_pixel(3 downto 1);
+								red_pixel := f_luminance(pixel_in);
+								green_pixel := '0' & f_luminance(pixel_in)(3 downto 1);
 								blue_pixel := "0000";	
 								
 							else
 								-- green
+								green_pixel := f_luminance(pixel_in);
 								red_pixel := "0000";
 								blue_pixel := "0000";																		
 							end if;
