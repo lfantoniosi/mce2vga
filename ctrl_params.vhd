@@ -55,10 +55,10 @@ begin
 					if (s_cur_ctrl > 0) then
 						s_cur_ctrl <= s_cur_ctrl - 1;
 					else
-						s_cur_ctrl <= 3;
+						s_cur_ctrl <= 2;
 					end if;
 			elsif (s_down_pressed = '1') then
-					if (s_cur_ctrl < 3) then
+					if (s_cur_ctrl < 2) then
 						s_cur_ctrl <= s_cur_ctrl + 1;
 					else
 						s_cur_ctrl <= 0;

@@ -164,110 +164,110 @@ begin
 	
 	end process;	
 
-	process(clk, hcount, pr, sample_adj) 
-	variable i : integer range 0 to 15;
-	begin
-		if (rising_edge(clk)) then				
-			if (hcount(2 downto 0) = "110") then
-				rrggbb(5) <= '0';
-				if (i > sample_adj) then
-					rrggbb(5) <= '1';
-				end if;
-				i := 0;
-			elsif(pr = '1') then
-				i := i + 1;
-			end if;	
-		end if;		
-	end process;
-
-	process(clk, hcount, sr, sample_adj) 
-	variable i : integer range 0 to 15;
-	begin
-		if (rising_edge(clk)) then				
-			if (hcount(2 downto 0) = "110") then
-				rrggbb(4) <= '0';
-				if (i > sample_adj) then
-					rrggbb(4) <= '1';
-				end if;
-				i := 0;
-			elsif(sr = '1') then
-				i := i + 1;
-			end if;				
-		end if;		
-	end process;
-	
-
-	process(clk, hcount, pg, sample_adj) 
-	variable i : integer range 0 to 15;
-	begin
-		if (rising_edge(clk)) then						
-			if (hcount(2 downto 0) = "110") then
-				rrggbb(3) <= '0';
-				if (i > sample_adj) then
-					rrggbb(3) <= '1';
-				end if;
-				i := 0;
-			elsif(pg = '1') then
-				i := i + 1;
-			end if;	
-		end if;		
-	end process;	
-	
-	process(clk, hcount, sg, sample_adj) 
-	variable i : integer range 0 to 15;
-	begin
-		if (rising_edge(clk)) then				
-			if (hcount(2 downto 0) = "110") then
-				rrggbb(2) <= '0';
-				if (i > sample_adj) then
-					rrggbb(2) <= '1';
-				end if;
-				i := 0;
-			elsif(sg = '1') then
-				i := i + 1;
-			end if;			
-		end if;		
-	end process;	
-	
-	
-	process(clk, hcount, pb, sample_adj)
-	variable i : integer range 0 to 15;
-	begin
-		if (rising_edge(clk)) then				
-			if (hcount(2 downto 0) = "110") then
-				rrggbb(1) <= '0';
-				if (i > sample_adj) then
-					rrggbb(1) <= '1';
-				end if;
-				i := 0;
-			elsif(pb = '1') then
-				i := i + 1;
-			end if;		
-		end if;		
-	end process;		
-	
-	process(clk, hcount, sb, sample_adj) 
-	variable i : integer range 0 to 15;
-	begin
-		if (rising_edge(clk)) then	
-			if(sb = '1') then
-				i := i + 1;
-			end if;
-			if (hcount(2 downto 0) = "110") then
-				rrggbb(0) <= '0';
-				if (i > sample_adj) then
-					rrggbb(0) <= '1';
-				end if;
-				i := 0;
-			end if;			
-		end if;		
-	end process;	
+--	process(clk, hcount, pr, sample_adj) 
+--	variable i : integer range 0 to 15;
+--	begin
+--		if (rising_edge(clk)) then				
+--			if (hcount(2 downto 0) = "110") then
+--				rrggbb(5) <= '0';
+--				if (i > sample_adj) then
+--					rrggbb(5) <= '1';
+--				end if;
+--				i := 0;
+--			elsif(pr = '1') then
+--				i := i + 1;
+--			end if;	
+--		end if;		
+--	end process;
+--
+--	process(clk, hcount, sr, sample_adj) 
+--	variable i : integer range 0 to 15;
+--	begin
+--		if (rising_edge(clk)) then				
+--			if (hcount(2 downto 0) = "110") then
+--				rrggbb(4) <= '0';
+--				if (i > sample_adj) then
+--					rrggbb(4) <= '1';
+--				end if;
+--				i := 0;
+--			elsif(sr = '1') then
+--				i := i + 1;
+--			end if;				
+--		end if;		
+--	end process;
+--	
+--
+--	process(clk, hcount, pg, sample_adj) 
+--	variable i : integer range 0 to 15;
+--	begin
+--		if (rising_edge(clk)) then						
+--			if (hcount(2 downto 0) = "110") then
+--				rrggbb(3) <= '0';
+--				if (i > sample_adj) then
+--					rrggbb(3) <= '1';
+--				end if;
+--				i := 0;
+--			elsif(pg = '1') then
+--				i := i + 1;
+--			end if;	
+--		end if;		
+--	end process;	
+--	
+--	process(clk, hcount, sg, sample_adj) 
+--	variable i : integer range 0 to 15;
+--	begin
+--		if (rising_edge(clk)) then				
+--			if (hcount(2 downto 0) = "110") then
+--				rrggbb(2) <= '0';
+--				if (i > sample_adj) then
+--					rrggbb(2) <= '1';
+--				end if;
+--				i := 0;
+--			elsif(sg = '1') then
+--				i := i + 1;
+--			end if;			
+--		end if;		
+--	end process;	
+--	
+--	
+--	process(clk, hcount, pb, sample_adj)
+--	variable i : integer range 0 to 15;
+--	begin
+--		if (rising_edge(clk)) then				
+--			if (hcount(2 downto 0) = "110") then
+--				rrggbb(1) <= '0';
+--				if (i > sample_adj) then
+--					rrggbb(1) <= '1';
+--				end if;
+--				i := 0;
+--			elsif(pb = '1') then
+--				i := i + 1;
+--			end if;		
+--		end if;		
+--	end process;		
+--	
+--	process(clk, hcount, sb, sample_adj) 
+--	variable i : integer range 0 to 15;
+--	begin
+--		if (rising_edge(clk)) then	
+--			if(sb = '1') then
+--				i := i + 1;
+--			end if;
+--			if (hcount(2 downto 0) = "110") then
+--				rrggbb(0) <= '0';
+--				if (i > sample_adj) then
+--					rrggbb(0) <= '1';
+--				end if;
+--				i := 0;
+--			end if;			
+--		end if;		
+--	end process;	
 		
-	process(clk, rrggbb) 
+	process(clk, pr, sr, pg, sg, pb, sb) 
 	begin
 		if (rising_edge(clk)) then
 			if (hcount(2 downto 0) = "111") then
-				pixel <= rrggbb;
+				pixel <= pr & sr & pg & sg & pb & sb;
 			end if;
 		end if;
 		

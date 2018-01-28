@@ -180,87 +180,21 @@ begin
 			end if;
 		end if;
 	
-	end process;	
+	end process;		
 
-	
-	process(clk, hcount, r, sample_adj) 
-	variable i : integer range 0 to 15;
-	begin
-		if (rising_edge(clk)) then				
-			if (hcount(2 downto 0) = "110") then
-				rgbi(3) <= '0';
-				if (i > sample_adj) then
-					rgbi(3) <= '1';
-				end if;
-				i := 0;
-			elsif(r = '1' and hcount(2 downto 0) /= "000") then
-				i := i + 1;
-			end if;			
-		end if;		
-	end process;	
-	
-	process(clk, hcount, g, sample_adj) 
-	variable i : integer range 0 to 15;
-	begin
-		if (rising_edge(clk)) then	
-			if (hcount(2 downto 0) = "110") then
-				rgbi(2) <= '0';
-				if (i > sample_adj) then
-					rgbi(2) <= '1';
-				end if;
-				i := 0;
-			elsif(g = '1' and hcount(2 downto 0) /= "000") then
-				i := i + 1;
-			end if;			
-		end if;		
-	end process;
-
-	process(clk, hcount, b, sample_adj) 
-	variable i : integer range 0 to 15;
-	begin
-		if (rising_edge(clk)) then				
-			if (hcount(2 downto 0) = "110") then
-				rgbi(1) <= '0';
-				if (i > sample_adj) then
-					rgbi(1) <= '1';
-				end if;
-				i := 0;
-			elsif(b = '1' and hcount(2 downto 0) /= "000") then
-				i := i + 1;
-			end if;		
-		end if;		
-	end process;
-	
-	process(clk, hcount, int, sample_adj) 
-	variable i : integer range 0 to 15;
-	begin
-		if (rising_edge(clk)) then				
-			if (hcount(2 downto 0) = "110") then
-				rgbi(0) <= '0';
-				if (i > sample_adj) then
-					rgbi(0) <= '1';
-				end if;
-				i := 0;
-			elsif(int = '1' and hcount(2 downto 0) /= "000") then
-				i := i + 1;
-			end if;			
-		end if;		
-	end process;	
-
-	process(clk, rgbi) 
+	process(clk, r, g, b, int) 
 	variable rgb : unsigned(5 downto 0);	
 	begin
 		if (rising_edge(clk)) then				
 			if (hcount(2 downto 0) = "111") then
-				if (rgbi = "0001") then
-					pixel <= "010101"; -- DARK GRAY
-				else				
-					rgb := (rgbi(3)&rgbi(0)&rgbi(2)&rgbi(0)&rgbi(1)&rgbi(0)) and (rgbi(3)&rgbi(3)&rgbi(2)&rgbi(2)&rgbi(1)&rgbi(1));		
-					case(rgb) is
-						when "101000" => pixel <= "100100"; -- BROWN
-						when others => pixel <= rgb;
-					end case;
-				end if;
+			
+				rgb := (r & int & g & int & b & int) and (r & r & g & g & b & b);
+				
+				case(rgb) is
+					when "101000" => pixel <= "100100"; -- BROWN
+					when others => pixel <= rgb;
+				end case;				
+							
 			end if;				
 		end if;
 		

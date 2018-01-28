@@ -179,60 +179,58 @@ begin
 	
 	end process;	
 
-	process(clk, hcount, hblank, video, sample_adj) 
-	variable i : integer range 0 to 15;
-	begin
-		if (rising_edge(clk)) then	
-			if (hgc_tick(5 downto 0) /= "111111") then
-				if(video = '1') then
-					i := i + 1;
-				end if;
-				if (hcount(2 downto 0) = "110") then
-						vi(1) <= '0';
-						if (i > sample_adj) then
-							vi(1) <= '1';
-						end if;
-						i := 0;
-				end if;			
-			end if;
-		end if;		
-	end process;
-
-	process(clk, hcount, hblank, intensity, sample_adj) 
-	variable i : integer range 0 to 15;
-	begin
-		if (rising_edge(clk)) then	
-			if (hgc_tick(5 downto 0) /= "111111") then
-				if(intensity = '1') then
-					i := i + 1;
-				end if;
-				if (hcount(2 downto 0) = "110") then
-					vi(0) <= '0';
-					if (i > sample_adj) then
-						vi(0) <= '1';
-					end if;
-					i := 0;
-				end if;
-			end if;			
-		end if;		
-	end process;
+--	process(clk, hcount, hblank, video, sample_adj) 
+--	variable i : integer range 0 to 15;
+--	begin
+--		if (rising_edge(clk)) then	
+--			if (hgc_tick(5 downto 0) /= "111111") then
+--				if(video = '1') then
+--					i := i + 1;
+--				end if;
+--				if (hcount(2 downto 0) = "110") then
+--						vi(1) <= '0';
+--						if (i > sample_adj) then
+--							vi(1) <= '1';
+--						end if;
+--						i := 0;
+--				end if;			
+--			end if;
+--		end if;		
+--	end process;
+--
+--	process(clk, hcount, hblank, intensity, sample_adj) 
+--	variable i : integer range 0 to 15;
+--	begin
+--		if (rising_edge(clk)) then	
+--			if (hgc_tick(5 downto 0) /= "111111") then
+--				if(intensity = '1') then
+--					i := i + 1;
+--				end if;
+--				if (hcount(2 downto 0) = "110") then
+--					vi(0) <= '0';
+--					if (i > sample_adj) then
+--						vi(0) <= '1';
+--					end if;
+--					i := 0;
+--				end if;
+--			end if;			
+--		end if;		
+--	end process;
 	
-	process(clk, vi) 
-	variable rgb : unsigned(5 downto 0);
-	variable mask : unsigned(5 downto 0);
+	process(clk, hcount, video, intensity, col_number)
+	variable rgbi : unsigned(3 downto 0);		
 	begin
 	
 		if (rising_edge(clk)) then
 		
-			if (hcount(2 downto 0) = "111") then
+			if (hcount(2 downto 0) = "111") then		
 			
-				pixel <= vi(1)&vi(0)&vi(1)&vi(0)&vi(1)&vi(0);
-				
+				pixel <= video & intensity & video & intensity & video & intensity;
+					
 			end if;
-
 		end if;
 		
-	end process;	
+	end process;
 
 
 end behavioral;
