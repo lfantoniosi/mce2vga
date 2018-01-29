@@ -48,6 +48,7 @@ signal sample_adj		 : integer range 0 to 7 := 1;
 signal s_col_begin	: integer range 0 to 2048 := 0;
 signal s_col_end		: integer range 0 to 2048 := 752;
 signal s_row_begin	: integer range 0 to 2048 := 0;
+signal s_col_trg		: integer range 0 to 2048 := 656;
 signal s_row_end		: integer range 0 to 2048 := 382;
 
 begin
@@ -59,6 +60,7 @@ begin
 			if (enable = '1') then
 				s_col_begin <= to_integer(left_border);
 				s_col_end <= to_integer(left_border) + 664;
+				s_col_trg <= to_integer(left_border) + 656;
 				s_row_begin <= to_integer(top_border);
 				s_row_end <= to_integer(top_border) + 382;
 				sample_adj <= to_integer(samples);
@@ -124,7 +126,7 @@ begin
 			
 	end process;
 
-	process(clk, vcount, hblank, hcount, s_row_begin, s_row_end)  --, s_col_begin, s_col_end
+	process(clk, vcount, hblank, hcount, s_row_begin, s_row_end, s_col_trg)  --, s_col_begin, s_col_end
 	begin
 		
 		if (rising_edge(clk)) then		
@@ -133,8 +135,8 @@ begin
 				store_trg <= '0';
 			end if;
 			
-			if(hblank = '1') then			
-			--if((hcount(2 downto 0) = "000") and hcount(hcount'length-1 downto 3) = (s_col_begin + 640 + 32)) then
+			--if(hblank = '1') then			
+			if((hcount(2 downto 0) = "000") and hcount(hcount'length-1 downto 3) = s_col_trg) then
 				if (vcount > s_row_begin and vcount < s_row_end) then
 					row_number <= row_number + 1;		
 					store_trg <= '1';
