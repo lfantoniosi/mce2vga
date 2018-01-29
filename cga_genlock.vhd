@@ -188,7 +188,7 @@ begin
 		if (rising_edge(clk)) then				
 			if (hcount(2 downto 0) = "111") then
 			
-				rgb := (r & int & g & int & b & int) and (r & r & g & g & b & b);
+				rgb := (r & int & g & int & b & int); -- and (r & r & g & g & b & b);
 				
 				case(rgb) is
 					when "101000" => pixel <= "100100"; -- BROWN
