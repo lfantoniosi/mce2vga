@@ -79,7 +79,7 @@ begin
 				s_col_begin <= to_integer(left_border);
 				s_col_end <= to_integer(left_border) + 752;
 				s_row_begin <= to_integer(top_border);
-				s_row_end <= to_integer(top_border) + 232;
+				s_row_end <= to_integer(top_border) + 261;
 				sample_adj <= to_integer(samples);
 			end if;
 		end if;
