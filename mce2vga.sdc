@@ -75,10 +75,12 @@ set_input_delay -clock [get_clocks {pll2|altpll_component|auto_generated|pll1|cl
 set_input_delay -clock [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[0]}]  -add_delay  0.075 [get_ports {V SW3 SW2 SW1 SW0 SR SG SB PR PG PB H RESET SRAM_DQ15 SRAM_DQ14 SRAM_DQ13 SRAM_DQ12 SRAM_DQ11 SRAM_DQ10 SRAM_DQ9 SRAM_DQ8 SRAM_DQ7 SRAM_DQ6 SRAM_DQ5 SRAM_DQ4 SRAM_DQ3 SRAM_DQ2 SRAM_DQ1 SRAM_DQ0 UP_BTN DOWN_BTN LEFT_BTN RIGHT_BTN}]
 set_input_delay -clock [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[1]}]  -add_delay  0.075 [get_ports {V SW3 SW2 SW1 SW0 SR SG SB PR PG PB H RESET SRAM_DQ15 SRAM_DQ14 SRAM_DQ13 SRAM_DQ12 SRAM_DQ11 SRAM_DQ10 SRAM_DQ9 SRAM_DQ8 SRAM_DQ7 SRAM_DQ6 SRAM_DQ5 SRAM_DQ4 SRAM_DQ3 SRAM_DQ2 SRAM_DQ1 SRAM_DQ0 UP_BTN DOWN_BTN LEFT_BTN RIGHT_BTN}]
 set_input_delay -clock [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[2]}]  -add_delay  0.075 [get_ports {V SW3 SW2 SW1 SW0 SR SG SB PR PG PB H RESET SRAM_DQ15 SRAM_DQ14 SRAM_DQ13 SRAM_DQ12 SRAM_DQ11 SRAM_DQ10 SRAM_DQ9 SRAM_DQ8 SRAM_DQ7 SRAM_DQ6 SRAM_DQ5 SRAM_DQ4 SRAM_DQ3 SRAM_DQ2 SRAM_DQ1 SRAM_DQ0 UP_BTN DOWN_BTN LEFT_BTN RIGHT_BTN}]
+set_input_delay -clock [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[3]}]  -add_delay  0.075 [get_ports {V SW3 SW2 SW1 SW0 SR SG SB PR PG PB H RESET SRAM_DQ15 SRAM_DQ14 SRAM_DQ13 SRAM_DQ12 SRAM_DQ11 SRAM_DQ10 SRAM_DQ9 SRAM_DQ8 SRAM_DQ7 SRAM_DQ6 SRAM_DQ5 SRAM_DQ4 SRAM_DQ3 SRAM_DQ2 SRAM_DQ1 SRAM_DQ0 UP_BTN DOWN_BTN LEFT_BTN RIGHT_BTN}]
 
 set_input_delay -clock [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[0]}]  -max 		 0.125 [get_ports {V SW3 SW2 SW1 SW0 SR SG SB PR PG PB H RESET SRAM_DQ15 SRAM_DQ14 SRAM_DQ13 SRAM_DQ12 SRAM_DQ11 SRAM_DQ10 SRAM_DQ9 SRAM_DQ8 SRAM_DQ7 SRAM_DQ6 SRAM_DQ5 SRAM_DQ4 SRAM_DQ3 SRAM_DQ2 SRAM_DQ1 SRAM_DQ0 UP_BTN DOWN_BTN LEFT_BTN RIGHT_BTN}]
 set_input_delay -clock [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[1]}]  -max 		 0.125 [get_ports {V SW3 SW2 SW1 SW0 SR SG SB PR PG PB H RESET SRAM_DQ15 SRAM_DQ14 SRAM_DQ13 SRAM_DQ12 SRAM_DQ11 SRAM_DQ10 SRAM_DQ9 SRAM_DQ8 SRAM_DQ7 SRAM_DQ6 SRAM_DQ5 SRAM_DQ4 SRAM_DQ3 SRAM_DQ2 SRAM_DQ1 SRAM_DQ0 UP_BTN DOWN_BTN LEFT_BTN RIGHT_BTN}]
 set_input_delay -clock [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[2]}]  -max 		 0.125 [get_ports {V SW3 SW2 SW1 SW0 SR SG SB PR PG PB H RESET SRAM_DQ15 SRAM_DQ14 SRAM_DQ13 SRAM_DQ12 SRAM_DQ11 SRAM_DQ10 SRAM_DQ9 SRAM_DQ8 SRAM_DQ7 SRAM_DQ6 SRAM_DQ5 SRAM_DQ4 SRAM_DQ3 SRAM_DQ2 SRAM_DQ1 SRAM_DQ0 UP_BTN DOWN_BTN LEFT_BTN RIGHT_BTN}]
+set_input_delay -clock [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[3]}]  -max 		 0.125 [get_ports {V SW3 SW2 SW1 SW0 SR SG SB PR PG PB H RESET SRAM_DQ15 SRAM_DQ14 SRAM_DQ13 SRAM_DQ12 SRAM_DQ11 SRAM_DQ10 SRAM_DQ9 SRAM_DQ8 SRAM_DQ7 SRAM_DQ6 SRAM_DQ5 SRAM_DQ4 SRAM_DQ3 SRAM_DQ2 SRAM_DQ1 SRAM_DQ0 UP_BTN DOWN_BTN LEFT_BTN RIGHT_BTN}]
 
 ##**************************************************************
 ## Set Output Delay
@@ -95,10 +97,12 @@ set_output_delay -clock [get_clocks {pll2|altpll_component|auto_generated|pll1|c
 set_output_delay -clock [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[0]}]  -add_delay 0.075 [get_ports {B0 B1 B2 B3 G0 G1 G2 G3 HSYNC R0 R1 R2 R3 SRAM_ADDR0 SRAM_ADDR1 SRAM_ADDR2 SRAM_ADDR3 SRAM_ADDR4 SRAM_ADDR5 SRAM_ADDR6 SRAM_ADDR7 SRAM_ADDR8 SRAM_ADDR9 SRAM_ADDR10 SRAM_ADDR11 SRAM_ADDR12 SRAM_ADDR13 SRAM_ADDR14 SRAM_ADDR15 SRAM_ADDR16 SRAM_ADDR17 SRAM_DQ0 SRAM_DQ1 SRAM_DQ2 SRAM_DQ3 SRAM_DQ4 SRAM_DQ5 SRAM_DQ6 SRAM_DQ7 SRAM_DQ8 SRAM_DQ9 SRAM_DQ10 SRAM_DQ11 SRAM_DQ12 SRAM_DQ13 SRAM_DQ14 SRAM_DQ15 SRAM_LB SRAM_OE SRAM_UB SRAM_WE SRAM_CE VSYNC LED0 LED1 LED2 LED3}]
 set_output_delay -clock [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[1]}]  -add_delay 0.075 [get_ports {B0 B1 B2 B3 G0 G1 G2 G3 HSYNC R0 R1 R2 R3 SRAM_ADDR0 SRAM_ADDR1 SRAM_ADDR2 SRAM_ADDR3 SRAM_ADDR4 SRAM_ADDR5 SRAM_ADDR6 SRAM_ADDR7 SRAM_ADDR8 SRAM_ADDR9 SRAM_ADDR10 SRAM_ADDR11 SRAM_ADDR12 SRAM_ADDR13 SRAM_ADDR14 SRAM_ADDR15 SRAM_ADDR16 SRAM_ADDR17 SRAM_DQ0 SRAM_DQ1 SRAM_DQ2 SRAM_DQ3 SRAM_DQ4 SRAM_DQ5 SRAM_DQ6 SRAM_DQ7 SRAM_DQ8 SRAM_DQ9 SRAM_DQ10 SRAM_DQ11 SRAM_DQ12 SRAM_DQ13 SRAM_DQ14 SRAM_DQ15 SRAM_LB SRAM_OE SRAM_UB SRAM_WE SRAM_CE VSYNC LED0 LED1 LED2 LED3}]
 set_output_delay -clock [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[2]}]  -add_delay 0.075 [get_ports {B0 B1 B2 B3 G0 G1 G2 G3 HSYNC R0 R1 R2 R3 SRAM_ADDR0 SRAM_ADDR1 SRAM_ADDR2 SRAM_ADDR3 SRAM_ADDR4 SRAM_ADDR5 SRAM_ADDR6 SRAM_ADDR7 SRAM_ADDR8 SRAM_ADDR9 SRAM_ADDR10 SRAM_ADDR11 SRAM_ADDR12 SRAM_ADDR13 SRAM_ADDR14 SRAM_ADDR15 SRAM_ADDR16 SRAM_ADDR17 SRAM_DQ0 SRAM_DQ1 SRAM_DQ2 SRAM_DQ3 SRAM_DQ4 SRAM_DQ5 SRAM_DQ6 SRAM_DQ7 SRAM_DQ8 SRAM_DQ9 SRAM_DQ10 SRAM_DQ11 SRAM_DQ12 SRAM_DQ13 SRAM_DQ14 SRAM_DQ15 SRAM_LB SRAM_OE SRAM_UB SRAM_WE SRAM_CE VSYNC LED0 LED1 LED2 LED3}]
+set_output_delay -clock [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[3]}]  -add_delay 0.075 [get_ports {B0 B1 B2 B3 G0 G1 G2 G3 HSYNC R0 R1 R2 R3 SRAM_ADDR0 SRAM_ADDR1 SRAM_ADDR2 SRAM_ADDR3 SRAM_ADDR4 SRAM_ADDR5 SRAM_ADDR6 SRAM_ADDR7 SRAM_ADDR8 SRAM_ADDR9 SRAM_ADDR10 SRAM_ADDR11 SRAM_ADDR12 SRAM_ADDR13 SRAM_ADDR14 SRAM_ADDR15 SRAM_ADDR16 SRAM_ADDR17 SRAM_DQ0 SRAM_DQ1 SRAM_DQ2 SRAM_DQ3 SRAM_DQ4 SRAM_DQ5 SRAM_DQ6 SRAM_DQ7 SRAM_DQ8 SRAM_DQ9 SRAM_DQ10 SRAM_DQ11 SRAM_DQ12 SRAM_DQ13 SRAM_DQ14 SRAM_DQ15 SRAM_LB SRAM_OE SRAM_UB SRAM_WE SRAM_CE VSYNC LED0 LED1 LED2 LED3}]
 
 set_output_delay -clock [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[0]}]  -max       0.125 [get_ports {B0 B1 B2 B3 G0 G1 G2 G3 HSYNC R0 R1 R2 R3 SRAM_ADDR0 SRAM_ADDR1 SRAM_ADDR2 SRAM_ADDR3 SRAM_ADDR4 SRAM_ADDR5 SRAM_ADDR6 SRAM_ADDR7 SRAM_ADDR8 SRAM_ADDR9 SRAM_ADDR10 SRAM_ADDR11 SRAM_ADDR12 SRAM_ADDR13 SRAM_ADDR14 SRAM_ADDR15 SRAM_ADDR16 SRAM_ADDR17 SRAM_DQ0 SRAM_DQ1 SRAM_DQ2 SRAM_DQ3 SRAM_DQ4 SRAM_DQ5 SRAM_DQ6 SRAM_DQ7 SRAM_DQ8 SRAM_DQ9 SRAM_DQ10 SRAM_DQ11 SRAM_DQ12 SRAM_DQ13 SRAM_DQ14 SRAM_DQ15 SRAM_LB SRAM_OE SRAM_UB SRAM_WE SRAM_CE VSYNC LED0 LED1 LED2 LED3}]
 set_output_delay -clock [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[1]}]  -max       0.125 [get_ports {B0 B1 B2 B3 G0 G1 G2 G3 HSYNC R0 R1 R2 R3 SRAM_ADDR0 SRAM_ADDR1 SRAM_ADDR2 SRAM_ADDR3 SRAM_ADDR4 SRAM_ADDR5 SRAM_ADDR6 SRAM_ADDR7 SRAM_ADDR8 SRAM_ADDR9 SRAM_ADDR10 SRAM_ADDR11 SRAM_ADDR12 SRAM_ADDR13 SRAM_ADDR14 SRAM_ADDR15 SRAM_ADDR16 SRAM_ADDR17 SRAM_DQ0 SRAM_DQ1 SRAM_DQ2 SRAM_DQ3 SRAM_DQ4 SRAM_DQ5 SRAM_DQ6 SRAM_DQ7 SRAM_DQ8 SRAM_DQ9 SRAM_DQ10 SRAM_DQ11 SRAM_DQ12 SRAM_DQ13 SRAM_DQ14 SRAM_DQ15 SRAM_LB SRAM_OE SRAM_UB SRAM_WE SRAM_CE VSYNC LED0 LED1 LED2 LED3}]
 set_output_delay -clock [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[2]}]  -max       0.125 [get_ports {B0 B1 B2 B3 G0 G1 G2 G3 HSYNC R0 R1 R2 R3 SRAM_ADDR0 SRAM_ADDR1 SRAM_ADDR2 SRAM_ADDR3 SRAM_ADDR4 SRAM_ADDR5 SRAM_ADDR6 SRAM_ADDR7 SRAM_ADDR8 SRAM_ADDR9 SRAM_ADDR10 SRAM_ADDR11 SRAM_ADDR12 SRAM_ADDR13 SRAM_ADDR14 SRAM_ADDR15 SRAM_ADDR16 SRAM_ADDR17 SRAM_DQ0 SRAM_DQ1 SRAM_DQ2 SRAM_DQ3 SRAM_DQ4 SRAM_DQ5 SRAM_DQ6 SRAM_DQ7 SRAM_DQ8 SRAM_DQ9 SRAM_DQ10 SRAM_DQ11 SRAM_DQ12 SRAM_DQ13 SRAM_DQ14 SRAM_DQ15 SRAM_LB SRAM_OE SRAM_UB SRAM_WE SRAM_CE VSYNC LED0 LED1 LED2 LED3}]
+set_output_delay -clock [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[3]}]  -max       0.125 [get_ports {B0 B1 B2 B3 G0 G1 G2 G3 HSYNC R0 R1 R2 R3 SRAM_ADDR0 SRAM_ADDR1 SRAM_ADDR2 SRAM_ADDR3 SRAM_ADDR4 SRAM_ADDR5 SRAM_ADDR6 SRAM_ADDR7 SRAM_ADDR8 SRAM_ADDR9 SRAM_ADDR10 SRAM_ADDR11 SRAM_ADDR12 SRAM_ADDR13 SRAM_ADDR14 SRAM_ADDR15 SRAM_ADDR16 SRAM_ADDR17 SRAM_DQ0 SRAM_DQ1 SRAM_DQ2 SRAM_DQ3 SRAM_DQ4 SRAM_DQ5 SRAM_DQ6 SRAM_DQ7 SRAM_DQ8 SRAM_DQ9 SRAM_DQ10 SRAM_DQ11 SRAM_DQ12 SRAM_DQ13 SRAM_DQ14 SRAM_DQ15 SRAM_LB SRAM_OE SRAM_UB SRAM_WE SRAM_CE VSYNC LED0 LED1 LED2 LED3}]
 
 
 
@@ -108,6 +112,7 @@ set_output_delay -clock [get_clocks {pll1|altpll_component|auto_generated|pll1|c
 #PLL1
 set_clock_groups -asynchronous -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[0]}] -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[1]}] 
 set_clock_groups -asynchronous -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[0]}] -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[2]}] 
+set_clock_groups -asynchronous -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[0]}] -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[3]}] 
 
 set_clock_groups -asynchronous -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[0]}] -group [get_clocks {pll2|altpll_component|auto_generated|pll1|clk[0]}] 
 set_clock_groups -asynchronous -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[0]}] -group [get_clocks {pll2|altpll_component|auto_generated|pll1|clk[1]}] 
@@ -115,6 +120,7 @@ set_clock_groups -asynchronous -group [get_clocks {pll1|altpll_component|auto_ge
 
 set_clock_groups -asynchronous -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[1]}] -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[0]}] 
 set_clock_groups -asynchronous -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[1]}] -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[2]}] 
+set_clock_groups -asynchronous -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[1]}] -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[3]}] 
 
 set_clock_groups -asynchronous -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[1]}] -group [get_clocks {pll2|altpll_component|auto_generated|pll1|clk[0]}] 
 set_clock_groups -asynchronous -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[1]}] -group [get_clocks {pll2|altpll_component|auto_generated|pll1|clk[1]}] 
@@ -122,10 +128,20 @@ set_clock_groups -asynchronous -group [get_clocks {pll1|altpll_component|auto_ge
 
 set_clock_groups -asynchronous -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[2]}] -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[0]}] 
 set_clock_groups -asynchronous -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[2]}] -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[1]}] 
+set_clock_groups -asynchronous -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[2]}] -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[3]}] 
 
 set_clock_groups -asynchronous -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[2]}] -group [get_clocks {pll2|altpll_component|auto_generated|pll1|clk[0]}] 
 set_clock_groups -asynchronous -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[2]}] -group [get_clocks {pll2|altpll_component|auto_generated|pll1|clk[1]}] 
 set_clock_groups -asynchronous -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[2]}] -group [get_clocks {pll2|altpll_component|auto_generated|pll1|clk[2]}] 
+
+set_clock_groups -asynchronous -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[3]}] -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[0]}] 
+set_clock_groups -asynchronous -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[3]}] -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[1]}] 
+set_clock_groups -asynchronous -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[3]}] -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[2]}] 
+
+set_clock_groups -asynchronous -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[3]}] -group [get_clocks {pll2|altpll_component|auto_generated|pll1|clk[0]}] 
+set_clock_groups -asynchronous -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[3]}] -group [get_clocks {pll2|altpll_component|auto_generated|pll1|clk[1]}] 
+set_clock_groups -asynchronous -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[3]}] -group [get_clocks {pll2|altpll_component|auto_generated|pll1|clk[2]}] 
+
 
 #PLL2
 set_clock_groups -asynchronous -group [get_clocks {pll2|altpll_component|auto_generated|pll1|clk[0]}] -group [get_clocks {pll2|altpll_component|auto_generated|pll1|clk[1]}] 
@@ -134,6 +150,7 @@ set_clock_groups -asynchronous -group [get_clocks {pll2|altpll_component|auto_ge
 set_clock_groups -asynchronous -group [get_clocks {pll2|altpll_component|auto_generated|pll1|clk[0]}] -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[0]}] 
 set_clock_groups -asynchronous -group [get_clocks {pll2|altpll_component|auto_generated|pll1|clk[0]}] -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[1]}] 
 set_clock_groups -asynchronous -group [get_clocks {pll2|altpll_component|auto_generated|pll1|clk[0]}] -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[2]}] 
+set_clock_groups -asynchronous -group [get_clocks {pll2|altpll_component|auto_generated|pll1|clk[0]}] -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[3]}] 
 
 set_clock_groups -asynchronous -group [get_clocks {pll2|altpll_component|auto_generated|pll1|clk[1]}] -group [get_clocks {pll2|altpll_component|auto_generated|pll1|clk[0]}] 
 set_clock_groups -asynchronous -group [get_clocks {pll2|altpll_component|auto_generated|pll1|clk[1]}] -group [get_clocks {pll2|altpll_component|auto_generated|pll1|clk[2]}] 
@@ -141,6 +158,7 @@ set_clock_groups -asynchronous -group [get_clocks {pll2|altpll_component|auto_ge
 set_clock_groups -asynchronous -group [get_clocks {pll2|altpll_component|auto_generated|pll1|clk[1]}] -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[0]}] 
 set_clock_groups -asynchronous -group [get_clocks {pll2|altpll_component|auto_generated|pll1|clk[1]}] -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[1]}] 
 set_clock_groups -asynchronous -group [get_clocks {pll2|altpll_component|auto_generated|pll1|clk[1]}] -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[2]}] 
+set_clock_groups -asynchronous -group [get_clocks {pll2|altpll_component|auto_generated|pll1|clk[1]}] -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[3]}] 
 
 set_clock_groups -asynchronous -group [get_clocks {pll2|altpll_component|auto_generated|pll1|clk[2]}] -group [get_clocks {pll2|altpll_component|auto_generated|pll1|clk[0]}] 
 set_clock_groups -asynchronous -group [get_clocks {pll2|altpll_component|auto_generated|pll1|clk[2]}] -group [get_clocks {pll2|altpll_component|auto_generated|pll1|clk[1]}] 
@@ -148,6 +166,7 @@ set_clock_groups -asynchronous -group [get_clocks {pll2|altpll_component|auto_ge
 set_clock_groups -asynchronous -group [get_clocks {pll2|altpll_component|auto_generated|pll1|clk[2]}] -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[0]}] 
 set_clock_groups -asynchronous -group [get_clocks {pll2|altpll_component|auto_generated|pll1|clk[2]}] -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[1]}] 
 set_clock_groups -asynchronous -group [get_clocks {pll2|altpll_component|auto_generated|pll1|clk[2]}] -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[2]}] 
+set_clock_groups -asynchronous -group [get_clocks {pll2|altpll_component|auto_generated|pll1|clk[2]}] -group [get_clocks {pll1|altpll_component|auto_generated|pll1|clk[3]}] 
 
 
 #**************************************************************

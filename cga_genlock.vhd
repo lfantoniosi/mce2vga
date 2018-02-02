@@ -66,7 +66,7 @@ signal store_trg		 	: std_logic := '0';
 signal sample_adj			: integer range 0 to 7 := 1;
 
 signal s_col_begin		: integer range 0 to 2048 := 90;
-signal s_col_end		: integer range 0 to 2048 := 90+725;
+signal s_col_end		: integer range 0 to 2048 := 90+800;
 signal s_row_begin		: integer range 0 to 2048 := 20;
 signal s_row_end		: integer range 0 to 2048 := 20+232;
 
@@ -77,7 +77,7 @@ begin
 		if (rising_edge(clk)) then	
 			if (enable = '1') then
 				s_col_begin <= to_integer(left_border);
-				s_col_end <= to_integer(left_border) + 752;
+				s_col_end <= to_integer(left_border) + 800;
 				s_row_begin <= to_integer(top_border);
 				s_row_end <= to_integer(top_border) + 261;
 				sample_adj <= to_integer(samples);
