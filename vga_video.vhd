@@ -212,6 +212,31 @@ begin
 		return VALUE;		
 end f_luminance;
 
+function f_dac(pattern: unsigned) return unsigned;
+function f_dac(pattern: unsigned) return unsigned is
+variable VALUE : unsigned (3 downto 0); 
+begin
+		case pattern is	
+			when "0000" => VALUE := "ZZZZ";
+			when "0001" => VALUE := "ZZZ1";
+			when "0010" => VALUE := "ZZ1Z";	
+			when "0011" => VALUE := "ZZ11";	
+			when "0100" => VALUE := "Z1ZZ";
+			when "0101" => VALUE := "Z1Z1";
+			when "0110" => VALUE := "Z11Z";
+			when "0111" => VALUE := "Z111";
+			when "1000" => VALUE := "1ZZZ";	
+			when "1001" => VALUE := "1ZZ1";
+			when "1010" => VALUE := "1Z1Z";	
+			when "1011" => VALUE := "1Z11";
+			when "1100" => VALUE := "11ZZ";	
+			when "1101" => VALUE := "11Z1";
+			when "1110" => VALUE := "111Z";
+			when "1111" => VALUE := "1111";	
+		end case;		
+		return VALUE;		
+end f_dac;
+
 begin
 
 --	process (clk, adj_y, adj_x)
@@ -452,16 +477,6 @@ begin
 						end if;
 					
 					end if;
-											
-					--if (mono = '0' or scanline = '1') then
-					--	red_pixel(1) := red_pixel(3) or red_pixel(2);
-					--	green_pixel(1) := green_pixel(3) or green_pixel(2);
-					--	blue_pixel(1) := blue_pixel(3) or blue_pixel(2);					
-					--end if;
-
-					--red_pixel(0) := red_pixel(3) or red_pixel(2);
-					--green_pixel(0) := green_pixel(3) or green_pixel(2);
-					--blue_pixel(0) := blue_pixel(3) or blue_pixel(2);
 				
 				end if;
 				
@@ -504,10 +519,14 @@ begin
 						
 					end if;
 				end if;
+				
+				red_pixel := red_pixel and (blank&blank&blank&blank);
+				green_pixel := green_pixel and (blank&blank&blank&blank);
+				blue_pixel := blue_pixel and (blank&blank&blank&blank);
 					
-				r_out <= red_pixel and (blank&blank&blank&blank);
-				g_out <= green_pixel and (blank&blank&blank&blank);
-				b_out <= blue_pixel and (blank&blank&blank&blank);
+				r_out <= f_dac(red_pixel);
+				g_out <= f_dac(green_pixel);
+				b_out <= f_dac(blue_pixel);
 				
 			end if;
 		
