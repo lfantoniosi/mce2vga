@@ -429,9 +429,9 @@ begin
 
 				else
 				
-					red_pixel := pixel_in(5) & '0' & pixel_in(4) & '0';
-					green_pixel := pixel_in(3) & '0' & pixel_in(2) & '0';
-					blue_pixel := pixel_in(1) & '0' & pixel_in(0) & '0';
+					red_pixel := pixel_in(5) & '0' & pixel_in(4) & pixel_in(4);
+					green_pixel := pixel_in(3) & '0' & pixel_in(2) & pixel_in(2);
+					blue_pixel := pixel_in(1) & '0' & pixel_in(0) & pixel_in(0);
 				
 				end if;
 				
