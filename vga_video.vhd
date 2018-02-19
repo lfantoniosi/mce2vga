@@ -212,31 +212,6 @@ begin
 		return VALUE;		
 end f_luminance;
 
-function f_dac(pattern: unsigned) return unsigned;
-function f_dac(pattern: unsigned) return unsigned is
-variable VALUE : unsigned (3 downto 0); 
-begin
-		case pattern is	
-			when "0000" => VALUE := "ZZZZ";
-			when "0001" => VALUE := "ZZZ1";
-			when "0010" => VALUE := "ZZ1Z";	
-			when "0011" => VALUE := "ZZ11";	
-			when "0100" => VALUE := "Z1ZZ";
-			when "0101" => VALUE := "Z1Z1";
-			when "0110" => VALUE := "Z11Z";
-			when "0111" => VALUE := "Z111";
-			when "1000" => VALUE := "1ZZZ";	
-			when "1001" => VALUE := "1ZZ1";
-			when "1010" => VALUE := "1Z1Z";	
-			when "1011" => VALUE := "1Z11";
-			when "1100" => VALUE := "11ZZ";	
-			when "1101" => VALUE := "11Z1";
-			when "1110" => VALUE := "111Z";
-			when "1111" => VALUE := "1111";	
-		end case;		
-		return VALUE;		
-end f_dac;
-
 begin
 
 --	process (clk, adj_y, adj_x)
@@ -451,36 +426,16 @@ begin
 						green_pixel := f_luminance(pixel_in);
 					end if;
 					blue_pixel := "0000";
+
 				else
 				
-					red_pixel := pixel_in(5 downto 4) & "00";
-					green_pixel := pixel_in(3 downto 2) & "00";
-					blue_pixel := pixel_in(1 downto 0) & "00";
-
-					if (mono = '1') then
-					
-						if (scanline = '0') then
-						
-							if (adjust_mode = '1') then
-								-- amber
-								red_pixel := f_luminance(pixel_in);
-								green_pixel := '0' & f_luminance(pixel_in)(3 downto 1);
-								blue_pixel := "0000";	
-								
-							else
-								-- green
-								green_pixel := f_luminance(pixel_in);
-								red_pixel := "0000";
-								blue_pixel := "0000";																		
-							end if;
-							
-						end if;
-					
-					end if;
+					red_pixel := pixel_in(5) & '0' & pixel_in(4) & '0';
+					green_pixel := pixel_in(3) & '0' & pixel_in(2) & '0';
+					blue_pixel := pixel_in(1) & '0' & pixel_in(0) & '0';
 				
 				end if;
 				
-				if (scanline = '1' and mono = '0' and scale_mode = 1) then
+				if (scanline = '1') then
 				
 					if (vcount(0) = '1') then
 					
@@ -497,7 +452,8 @@ begin
 					red_pixel := "0000";
 					green_pixel := "0000";
 					blue_pixel := "0000";
-				end if;						
+				end if;	
+				
 				if (osd_active = '1') then
 					
 					if (osd_bit = '1') then
@@ -507,6 +463,7 @@ begin
 					end if;
 					
 					if (vcount(9 downto 2) > 8 and vcount(9 downto 2) < 12 and hcount(9 downto 2) < 63) then
+					
 						if (hcount(9 downto 2) >= osd_value) then
 							red_pixel := "1111";
 							green_pixel := "0000";
@@ -519,14 +476,10 @@ begin
 						
 					end if;
 				end if;
-				
-				red_pixel := red_pixel and (blank&blank&blank&blank);
-				green_pixel := green_pixel and (blank&blank&blank&blank);
-				blue_pixel := blue_pixel and (blank&blank&blank&blank);
-					
-				r_out <= f_dac(red_pixel);
-				g_out <= f_dac(green_pixel);
-				b_out <= f_dac(blue_pixel);
+							
+				r_out <= red_pixel and (blank&blank&blank&blank);
+				g_out <= green_pixel and (blank&blank&blank&blank);
+				b_out <= blue_pixel and (blank&blank&blank&blank);
 				
 			end if;
 		

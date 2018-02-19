@@ -190,10 +190,8 @@ begin
 			
 				rgb := r & int & g & int & b & int;	
 				case(rgb) is
-					--when "010101" => pixel <= "010101"; -- GRAY
-					when "111101" => pixel <= "111100"; -- YELLOW
 					when "101000" => pixel <= "100100"; -- BROWN
-					when others => pixel <= rgb; -- and (r & r & g & g & b & b);
+					when others => pixel <= rgb; 
 				end case;
 							
 			end if;				
