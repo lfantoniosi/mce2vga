@@ -53,9 +53,6 @@ set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 1
 set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (VHDL)"
 set_global_assignment -name EDA_OUTPUT_DATA_FORMAT VHDL -section_id eda_simulation
 set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "2.5 V"
-set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
-set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
-set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_location_assignment PIN_23 -to CLK
 set_location_assignment PIN_65 -to SRAM_DQ0
 set_location_assignment PIN_67 -to SRAM_DQ1
@@ -143,23 +140,10 @@ set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -
 set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -fall
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
-set_global_assignment -name SDC_FILE mce2vga.sdc
-set_global_assignment -name BDF_FILE schematic.bdf
-set_global_assignment -name QIP_FILE pll1.qip
-set_global_assignment -name QIP_FILE pll2.qip
-set_global_assignment -name VHDL_FILE sync_level.vhd
-set_global_assignment -name VHDL_FILE mda_genlock.vhd
-set_global_assignment -name VHDL_FILE sram.vhd
-set_global_assignment -name VHDL_FILE vga_video.vhd
-set_global_assignment -name VHDL_FILE cga_genlock.vhd
 set_location_assignment PIN_125 -to RESET
-set_global_assignment -name VHDL_FILE ega_genlock.vhd
 set_global_assignment -name OPTIMIZATION_MODE "AGGRESSIVE PERFORMANCE"
 set_global_assignment -name ALLOW_REGISTER_RETIMING OFF
 set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to RESET
-set_global_assignment -name VHDL_FILE dual_ram_out.vhd
-set_global_assignment -name VHDL_FILE dual_ram_in.vhd
-set_global_assignment -name VHDL_FILE hgc_genlock.vhd
 set_location_assignment PIN_31 -to R3
 set_location_assignment PIN_28 -to G3
 set_location_assignment PIN_32 -to B3
@@ -173,8 +157,6 @@ set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to UP_BTN
 set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to DOWN_BTN
 set_global_assignment -name TIMEQUEST_MULTICORNER_ANALYSIS ON
 set_global_assignment -name NUM_PARALLEL_PROCESSORS ALL
-set_global_assignment -name VHDL_FILE ctrl_params.vhd
-set_global_assignment -name VHDL_FILE osd_rom.vhd
 set_global_assignment -name STRATIXV_CONFIGURATION_SCHEME "PASSIVE SERIAL"
 set_global_assignment -name RESERVE_ALL_UNUSED_PINS_WEAK_PULLUP "AS INPUT TRI-STATED"
 set_instance_assignment -name IO_STANDARD "2.5 V" -to B0
@@ -252,4 +234,22 @@ set_instance_assignment -name IO_STANDARD "2.5 V" -to SW3
 set_instance_assignment -name IO_STANDARD "2.5 V" -to UP_BTN
 set_instance_assignment -name IO_STANDARD "2.5 V" -to V
 set_instance_assignment -name IO_STANDARD "2.5 V" -to VSYNC
+set_global_assignment -name SDC_FILE mce2vga.sdc
+set_global_assignment -name BDF_FILE schematic.bdf
+set_global_assignment -name QIP_FILE pll1.qip
+set_global_assignment -name QIP_FILE pll2.qip
+set_global_assignment -name VHDL_FILE sync_level.vhd
+set_global_assignment -name VHDL_FILE mda_genlock.vhd
+set_global_assignment -name VHDL_FILE sram.vhd
+set_global_assignment -name VHDL_FILE vga_video.vhd
+set_global_assignment -name VHDL_FILE cga_genlock.vhd
+set_global_assignment -name VHDL_FILE ega_genlock.vhd
+set_global_assignment -name VHDL_FILE dual_ram_out.vhd
+set_global_assignment -name VHDL_FILE dual_ram_in.vhd
+set_global_assignment -name VHDL_FILE hgc_genlock.vhd
+set_global_assignment -name VHDL_FILE ctrl_params.vhd
+set_global_assignment -name VHDL_FILE osd_rom.vhd
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
