@@ -148,7 +148,7 @@ variable VALUE : unsigned (3 downto 0);
 begin
 		case pattern is	
 			when "0000" => VALUE := "0000";	
-			when "0001" => VALUE := "0111";
+			when "0001" => VALUE := "0011";
 			when "0010" => VALUE := "0001";	
 			when "0011" => VALUE := "1000";	
 			when "0100" => VALUE := "0100";
@@ -157,7 +157,7 @@ begin
 			when "0111" => VALUE := "1101";
 			when "1000" => VALUE := "0010";	
 			when "1001" => VALUE := "1010";
-			when "1010" => VALUE := "0011";	
+			when "1010" => VALUE := "0111";	
 			when "1011" => VALUE := "1011";
 			when "1100" => VALUE := "0110";
 			when "1101" => VALUE := "1110";
