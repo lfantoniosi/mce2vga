@@ -130,6 +130,13 @@ agreement for further details.
 		(line (pt 0 256)(pt 16 256)(line_width 3))
 	)
 	(port
+		(pt 0 272)
+		(input)
+		(text "reset" (rect 0 0 20 12)(font "Arial" ))
+		(text "reset" (rect 21 267 41 279)(font "Arial" ))
+		(line (pt 0 272)(pt 16 272)(line_width 1))
+	)
+	(port
 		(pt 232 32)
 		(output)
 		(text "col_number[9..0]" (rect 0 0 67 12)(font "Arial" ))

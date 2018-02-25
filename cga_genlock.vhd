@@ -30,7 +30,8 @@ entity cga_genlock is
 		
 		samples				: in unsigned(2 downto 0);
 		top_border			: in unsigned(7 downto 0);
-		left_border 		: in unsigned(7 downto 0)
+		left_border 		: in unsigned(7 downto 0);
+		reset					: in std_logic
 		
 );
 			
@@ -38,23 +39,14 @@ end cga_genlock;
 
 architecture behavioral of cga_genlock is
 
---
-constant black					: unsigned(5 downto 0) := "000000"; -- EGA 0
-constant blue					: unsigned(5 downto 0) := "000010"; -- EGA 1
-constant green					: unsigned(5 downto 0) := "001000"; -- EGA 2
-constant cyan					: unsigned(5 downto 0) := "001010"; -- EGA 3
-constant red					: unsigned(5 downto 0) := "100000"; -- EGA 4
-constant magenta				: unsigned(5 downto 0) := "100010"; -- EGA 5
-constant brown					: unsigned(5 downto 0) := "100100"; -- EGA 20
-constant lgray					: unsigned(5 downto 0) := "101010"; -- EGA 7
-constant dgray					: unsigned(5 downto 0) := "010101"; -- EGA 56
-constant lblue 				: unsigned(5 downto 0) := "010111"; -- EGA 57
-constant lgreen				: unsigned(5 downto 0) := "011101"; -- EGA 58
-constant lcyan					: unsigned(5 downto 0) := "011111"; -- EGA 59
-constant lred					: unsigned(5 downto 0) := "110101"; -- EGA 60
-constant lmagenta				: unsigned(5 downto 0) := "110111"; -- EGA 61
-constant yellow				: unsigned(5 downto 0) := "111101"; -- EGA 62
-constant white					: unsigned(5 downto 0) := "111111"; -- EGA 63
+constant black					: unsigned(3 downto 0) := "0000";
+constant white					: unsigned(3 downto 0) := "1111";
+constant lcyan					: unsigned(3 downto 0) := "0111";
+constant lmagn					: unsigned(3 downto 0) := "1011";
+
+constant dcyan					: unsigned(3 downto 0) := "0110";
+constant dmagn  				: unsigned(3 downto 0) := "1010";
+constant lgray					: unsigned(3 downto 0) := "1110";
 
 
 
@@ -66,9 +58,14 @@ signal store_trg		 	: std_logic := '0';
 signal sample_adj			: integer range 0 to 7 := 1;
 
 signal s_col_begin		: integer range 0 to 2048 := 90;
-signal s_col_end		: integer range 0 to 2048 := 90+800;
+signal s_col_end			: integer range 0 to 2048 := 90+800;
 signal s_row_begin		: integer range 0 to 2048 := 20;
-signal s_row_end		: integer range 0 to 2048 := 20+232;
+signal s_row_end			: integer range 0 to 2048 := 20+232;
+signal s_trg_reset		: std_logic := '0';
+signal s_composite		: std_logic := '0';
+signal s_pixel_queue 	: unsigned(15 downto 0);	
+signal s_rgbcomp			: unsigned(5 downto 0);
+signal s_rgbcomp_avg		: unsigned(5 downto 0);
 
 begin
 
@@ -83,6 +80,44 @@ begin
 				sample_adj <= to_integer(samples);
 			end if;
 		end if;
+	end process;
+	
+	process(clk, reset, enable)
+	variable latch : std_logic := '0';
+	variable peak: integer range 0 to 255*1024 := 255*1024;
+	begin
+		if (rising_edge(clk)) then			
+			s_trg_reset <= '0';
+			if (enable = '1') then			
+				if (reset /= latch) then				
+					if (peak > 0) then
+						peak := peak - 1;
+					else
+						latch := reset;
+						peak := 255*1024;
+						
+						if (reset = '0') then
+							s_trg_reset <= '1';
+						end if;
+						
+					end if;	
+				else
+				
+					peak := 255*1024;
+					
+				end if;
+				
+			end if;		
+		end if;
+	end process;
+
+	process(clk, s_trg_reset)
+	begin
+	if (rising_edge(clk)) then
+		if (s_trg_reset = '1') then
+			s_composite <= not s_composite;
+		end if;
+	end if;
 	end process;
 
 	-- colum counter
@@ -180,20 +215,172 @@ begin
 			end if;
 		end if;
 	
-	end process;		
+	end process;
 
-	process(clk, r, g, b, int) 
+	process(clk, hcount, r, g, b, int) 
+	begin
+		if (rising_edge(clk)) then	
+			if (hcount(2 downto 0) = "111") then			
+				-- rotate the pixel queue
+				s_pixel_queue(15 downto 4) <= s_pixel_queue(11 downto 0);
+				s_pixel_queue(3 downto 0) <=  r & g & b & int;	
+			end if;
+		end if;
+	end process;	
+
+	process(clk, hcount, s_col_begin, s_pixel_queue)
+	variable shifted : unsigned(15 downto 0);
+	begin
+		if (rising_edge(clk)) then	
+		
+			if (hcount(2 downto 0) = "111") then
+			
+				-- shifts the queue based on current column position
+				case (to_integer(hcount(4 downto 3)) + to_unsigned(s_col_begin, 11)(1 downto 0)) is
+					when "00" =>
+						shifted := s_pixel_queue;
+					when "01" =>
+						shifted(15 downto 12) := s_pixel_queue(3 downto 0);
+						shifted(11 downto 0) := s_pixel_queue(15 downto 4);
+					when "10" =>
+						shifted(15 downto 8) := s_pixel_queue(7 downto 0);
+						shifted(7 downto 0) := s_pixel_queue(15 downto 8);
+					when "11" =>
+						shifted(15 downto 4) := s_pixel_queue(11 downto 0);
+						shifted(3 downto 0) := s_pixel_queue(15 downto 12);
+				end case;
+			
+				case (shifted) is
+					-- black and white 640x200
+					when black&black&black&black 						=> s_rgbcomp <= "000000"; -- black
+					when black&black&black&white						=> s_rgbcomp <= "001001"; -- green
+					when black&black&white&black						=> s_rgbcomp <= "010011"; -- blue
+					when black&black&white&white						=> s_rgbcomp <= "001011"; -- ligth blue
+					when black&white&black&black						=> s_rgbcomp <= "100000"; -- red
+					when black&white&black&white						=> s_rgbcomp <= "101010"; -- gray
+					when black&white&white&black						=> s_rgbcomp <= "110011"; -- dmagn
+					when black&white&white&white						=> s_rgbcomp <= "111011"; -- pink
+					when white&black&black&black						=> s_rgbcomp <= "000100"; -- dark green
+					when white&black&black&white						=>	s_rgbcomp <= "001100"; -- light green
+					when white&black&white&black						=> s_rgbcomp <= "010101"; -- dark gray
+					when white&black&white&white						=> s_rgbcomp <= "011110"; -- acqua
+					when white&white&black&black						=> s_rgbcomp <= "110100"; -- orange
+					when white&white&black&white						=> s_rgbcomp <= "111100"; -- light yellow
+					when white&white&white&black						=> s_rgbcomp <= "111010"; -- salmon
+					when white&white&white&white						=> s_rgbcomp <= "111111"; -- white
+					
+					-- black and lgray 640x200
+--					when black&black&black&black 						=> s_rgbcomp <= "000000"; -- black
+					when black&black&black&lgray						=> s_rgbcomp <= "001000"; -- green
+					when black&black&lgray&black						=> s_rgbcomp <= "000011"; -- blue
+					when black&black&lgray&lgray						=> s_rgbcomp <= "001011"; -- ligth blue
+					when black&lgray&black&black						=> s_rgbcomp <= "100000"; -- red
+					when black&lgray&black&lgray						=> s_rgbcomp <= "010101"; -- gray
+					when black&lgray&lgray&black						=> s_rgbcomp <= "110011"; -- dmagn
+					when black&lgray&lgray&lgray						=> s_rgbcomp <= "011011"; -- pink
+					when lgray&black&black&black						=> s_rgbcomp <= "010100"; -- dark brown
+					when lgray&black&black&lgray						=>	s_rgbcomp <= "001100"; -- light green
+					when lgray&black&lgray&black						=> s_rgbcomp <= "010001"; -- dark brown
+					when lgray&black&lgray&lgray						=> s_rgbcomp <= "001110"; -- acqua green
+					when lgray&lgray&black&black						=> s_rgbcomp <= "110100"; -- orange
+					when lgray&lgray&black&lgray						=> s_rgbcomp <= "101000"; -- yellow
+					when lgray&lgray&lgray&black						=> s_rgbcomp <= "110011"; -- magenta
+					when lgray&lgray&lgray&lgray						=> s_rgbcomp <= "111111"; -- lgray										
+--
+					-- pallete 1 (high) 320x200
+--					when black&black&black&black 						=> s_rgbcomp <= "000000"; -- black
+					when black&black&lcyan&lcyan						=> s_rgbcomp <= "000111"; -- light blue
+					when black&black&lmagn&lmagn						=> s_rgbcomp <= "000011"; -- blue
+--					when black&black&white&white						=> s_rgbcomp <= "001011"; -- light blue
+					when lcyan&lcyan&black&black						=> s_rgbcomp <= "100000"; -- red
+					when lcyan&lcyan&lcyan&lcyan						=> s_rgbcomp <= "011110"; -- acqua;
+					when lcyan&lcyan&lmagn&lmagn						=> s_rgbcomp <= "101010"; -- gray
+					when lcyan&lcyan&white&white						=> s_rgbcomp <= "011111"; -- light cyan
+					when lmagn&lmagn&black&black						=> s_rgbcomp <= "110000"; -- light red
+					when lmagn&lmagn&lcyan&lcyan						=> s_rgbcomp <= "101111"; -- light cyan
+ 					when lmagn&lmagn&lmagn&lmagn						=> s_rgbcomp <= "111011"; -- light dmagn
+					when lmagn&lmagn&white&white						=> s_rgbcomp <= "001111"; -- light purple
+--					when white&white&black&black						=> s_rgbcomp <= "110100"; -- orange
+					when white&white&lcyan&lcyan						=> s_rgbcomp <= "111110"; -- light yellow
+					when white&white&lmagn&lmagn						=> s_rgbcomp <= "111010"; -- salmon
+--					when white&white&white&white						=> s_rgbcomp <= "111111"; -- white;
+
+					-- pallete 1 (low) 320x200
+--					when black&black&black&black 						=> composite <= "000000"; -- black
+					when black&black&dcyan&dcyan						=> s_rgbcomp <= "001011"; -- blue
+					when black&black&dmagn&dmagn						=> s_rgbcomp <= "000011"; -- blue
+--					when black&black&lgray&lgray						=> s_rgbcomp <= "001011"; -- blue
+					when dcyan&dcyan&black&black						=> s_rgbcomp <= "010000"; -- dark red
+					when dcyan&dcyan&dcyan&dcyan						=> s_rgbcomp <= "001110"; -- acqua
+					when dcyan&dcyan&dmagn&dmagn						=> s_rgbcomp <= "010001"; -- some brown/blue
+					when dcyan&dcyan&lgray&lgray						=> s_rgbcomp <= "011111"; -- dcyan
+					when dmagn&dmagn&black&black						=> s_rgbcomp <= "100000"; -- red
+					when dmagn&dmagn&dcyan&dcyan						=> s_rgbcomp <= "011011"; -- blue
+ 					when dmagn&dmagn&dmagn&dmagn						=> s_rgbcomp <= "100011"; -- purple
+					when dmagn&dmagn&lgray&lgray						=> s_rgbcomp <= "001011"; -- blue
+--					when lgray&lgray&black&black						=> s_rgbcomp <= "110000"; -- red
+					when lgray&lgray&dcyan&dcyan						=> s_rgbcomp <= "111010"; -- salmon
+					when lgray&lgray&dmagn&dmagn						=> s_rgbcomp <= "110101"; -- red
+--					when lgray&lgray&lgray&lgray						=> s_rgbcomp <= "111111"; -- white;					
+
+--					-- pallete 0 320x200
+--					--when black&black&black&black 					=> composite <= "000000"; -- black
+--					when black&black&lgreen&lgreen					=> composite <= "001011"; -- light blue
+--					when black&black&lred&lred							=> composite <= "000010"; -- blue
+--					when black&black&yellow&yellow					=> composite <= "000111"; -- light blue
+--					when lgreen&lgreen&black&black					=> composite <= "100100"; -- brown
+--					when lgreen&lgreen&lgreen&lgreen					=> composite <= "011101"; -- acqua;
+--					when lgreen&lgreen&lred&lred						=> composite <= "101000"; -- dark yellow
+--					when lgreen&lgreen&yellow&yellow					=> composite <= "101101"; -- light cyan
+--					when lred&lred&black&black							=> composite <= "100000"; -- red
+--					when lred&lred&lgreen&lgreen						=> composite <= "101010"; -- gray
+-- 					when lred&lred&lred&lred							=> composite <= "110110"; -- light dmagn
+--					when lred&lred&yellow&yellow						=> composite <= "010101"; -- dark gray
+--					when yellow&yellow&black&black					=> composite <= "111000"; -- orange
+--					when yellow&yellow&lgreen&lgreen					=> composite <= "111100"; -- yellow
+--					when yellow&yellow&lred&lred						=> composite <= "111000"; -- light orange
+--					when yellow&yellow&yellow&yellow					=> composite <= "111101"; -- light yellow;
+					
+					when others 											=> s_rgbcomp <= s_pixel_queue(3) & s_pixel_queue(0) & s_pixel_queue(2) & s_pixel_queue(0) & s_pixel_queue(1) & s_pixel_queue(0); -- default non coded color
+					
+				end case;
+			
+			end if;
+		end if;
+	end process;	
+	
+	process(clk, hcount, s_rgbcomp)
+	variable p_rgbcomp : unsigned(5 downto 0);	
+	begin
+		if (rising_edge(clk)) then	
+			if (hcount(2 downto 0) = "111") then			
+				s_rgbcomp_avg(5 downto 4) <= to_unsigned(to_integer(p_rgbcomp(5 downto 4)) + to_integer(p_rgbcomp(5 downto 4)) + to_integer(p_rgbcomp(5 downto 4)) + 
+				to_integer(s_rgbcomp(5 downto 4)), 4)(3 downto 2);
+				s_rgbcomp_avg(3 downto 2) <= to_unsigned(to_integer(p_rgbcomp(3 downto 2)) + to_integer(p_rgbcomp(3 downto 2)) + to_integer(p_rgbcomp(3 downto 2)) + 
+				to_integer(s_rgbcomp(3 downto 2)), 4)(3 downto 2);
+				s_rgbcomp_avg(1 downto 0) <= to_unsigned(to_integer(p_rgbcomp(1 downto 0)) + to_integer(p_rgbcomp(1 downto 0)) + to_integer(p_rgbcomp(1 downto 0)) + 
+				to_integer(s_rgbcomp(1 downto 0)), 4)(3 downto 2);
+				p_rgbcomp := s_rgbcomp;
+			end if;
+		end if;
+	end process;		
+	
+	
+	process(clk, hcount, r, g, b, int, s_rgbcomp_avg) 
 	variable rgb : unsigned(5 downto 0);	
 	begin
 		if (rising_edge(clk)) then				
 			if (hcount(2 downto 0) = "111") then
 			
-				rgb := r & int & g & int & b & int;	
-				case(rgb) is
-					when "101000" => pixel <= "100100"; -- BROWN
-					when others => pixel <= rgb; 
-				end case;
-							
+				if (s_composite = '0') then
+					rgb := r & int & g & int & b & int;	
+					case(rgb) is
+						when "101000" => pixel <= "100100"; -- BROWN
+						when others => pixel <= rgb; 
+					end case;
+				else
+					pixel <= s_rgbcomp_avg;
+				end if;							
 			end if;				
 		end if;
 		

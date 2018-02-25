@@ -399,8 +399,15 @@ begin
 					blue_pixel := pixel_in(1) & pixel_in(0) & "00";
 				
 				end if;
+				
+				if (row_mask = '0') then
+					red_pixel := '0' & red_pixel(3 downto 1);
+					green_pixel := '0' & green_pixel(3 downto 1);
+					blue_pixel := '0' & blue_pixel(3 downto 1);
+				end if;
+				
 					
-				if (no_video = '1' or row_mask = '0') then				
+				if (no_video = '1') then				
 					red_pixel := "0000";
 					green_pixel := "0000";
 					blue_pixel := "0000";
