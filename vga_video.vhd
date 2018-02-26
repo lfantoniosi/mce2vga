@@ -121,7 +121,8 @@ entity vga_video is
 		osd_enable			: out std_logic;
 		osd_bit				: in std_logic;
 		osd_active			: in std_logic;
-		osd_value			: in unsigned(5 downto 0)
+		osd_value			: in unsigned(5 downto 0);
+		composite			: in std_logic
     );
 end vga_video;
 
@@ -364,6 +365,13 @@ begin
 	variable blue_pixel: unsigned(3 downto 0);
 	variable rgbi : unsigned(3 downto 0);
 	
+	variable p_red_pixel: unsigned(3 downto 0);
+	variable p_green_pixel: unsigned(3 downto 0);
+	variable p_blue_pixel: unsigned(3 downto 0);
+	variable t_red_pixel: unsigned(3 downto 0);
+	variable t_green_pixel: unsigned(3 downto 0);
+	variable t_blue_pixel: unsigned(3 downto 0);
+	
 	begin		
 		
 			if (enable = '0') then
@@ -397,6 +405,20 @@ begin
 					red_pixel := pixel_in(5)  & pixel_in(4) & "00";
 					green_pixel := pixel_in(3) & pixel_in(2) & "00";
 					blue_pixel := pixel_in(1) & pixel_in(0) & "00";
+					
+					t_red_pixel := red_pixel;
+					t_green_pixel := green_pixel;
+					t_blue_pixel := blue_pixel;					
+					
+					if (composite = '1') then
+						red_pixel := to_unsigned(to_integer(red_pixel) + to_integer(p_red_pixel), 5)(4 downto 1);
+						green_pixel := to_unsigned(to_integer(green_pixel) + to_integer(p_green_pixel), 5)(4 downto 1);
+						blue_pixel := to_unsigned(to_integer(blue_pixel) + to_integer(p_blue_pixel), 5)(4 downto 1);
+					end if;
+					
+					p_red_pixel := t_red_pixel;
+					p_green_pixel := t_green_pixel;
+					p_blue_pixel := t_blue_pixel;
 				
 				end if;
 				

@@ -185,6 +185,13 @@ agreement for further details.
 		(text "max_row[9..0]" (rect 154 123 211 135)(font "Arial" ))
 		(line (pt 232 128)(pt 216 128)(line_width 3))
 	)
+	(port
+		(pt 232 144)
+		(output)
+		(text "composite" (rect 0 0 40 12)(font "Arial" ))
+		(text "composite" (rect 171 139 211 151)(font "Arial" ))
+		(line (pt 232 144)(pt 216 144)(line_width 1))
+	)
 	(drawing
 		(rectangle (rect 16 16 216 288)(line_width 1))
 	)
