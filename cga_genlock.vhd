@@ -301,6 +301,8 @@ begin
 					when lgray&lgray&black&lgray						=> s_rgbcomp <= "101000"; -- yellow
 					when lgray&lgray&lgray&black						=> s_rgbcomp <= "110011"; -- magenta
 					when lgray&lgray&lgray&lgray						=> s_rgbcomp <= "111111"; -- lgray										
+
+					
 --
 					-- pallete 1 (high) 320x200
 --					when black&black&black&black 						=> s_rgbcomp <= "000000"; -- black
@@ -319,6 +321,12 @@ begin
 					when white&white&lcyan&lcyan						=> s_rgbcomp <= "111110"; -- light yellow
 					when white&white&lmagn&lmagn						=> s_rgbcomp <= "111010"; -- salmon
 --					when white&white&white&white						=> s_rgbcomp <= "111111"; -- white;
+				
+					-- tandy 1000 / old cga
+					when dcyan&dcyan&white&white						=> s_rgbcomp <= "011111"; -- light cyan
+					when dmagn&dmagn&white&white						=> s_rgbcomp <= "001111"; -- light purple
+					when white&white&dcyan&dcyan						=> s_rgbcomp <= "111110"; -- light yellow
+					when white&white&dmagn&dmagn						=> s_rgbcomp <= "111010"; -- salmon
 
 					-- pallete 1 (low) 320x200
 --					when black&black&black&black 						=> composite <= "000000"; -- black
