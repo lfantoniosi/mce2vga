@@ -12,7 +12,6 @@ entity sync_level is
 		constant hsync_level	: std_logic	:= '1';
 		constant hsync_ticks	: integer := 7;	
 		constant vsync_ticks	: integer := 63;
-		constant	default		: std_logic := '0';
 		constant noise_filter: std_logic := '1'
 	);
 	
@@ -56,158 +55,158 @@ end process;
 
 --
 -- detect hsync level, pulse duration and row interval
-process(clk, hsync, hsync_adjust)
+process(clk, hsync, hsync_adjust, enable)
 variable sync : std_logic;
 variable peak: integer range 0 to 65535 := 0;
 
 begin
 	if (rising_edge(clk)) then
 		
-		hblank <= '0';
+		if (enable = '1') then
 		
-		if (hcount < 65535) then
-			hcount <= hcount + 1;
-		end if;
-		
-		if (hsync /= sync) then
-		
-			peak := peak + 1;	
+			hblank <= '0';
 			
-			if (peak > hsync_adjust) then
-			
-				peak := 0;
-				
-				sync := hsync;
-				
-				if (hsync = hsync_level) then 
-					hblank <= '1';
-					hcount <= 0;
-				end if;
-
+			if (hcount < 65535) then
+				hcount <= hcount + 1;
 			end if;
-		elsif noise_filter = '1' then
-			peak := 0;
+			
+			if (hsync /= sync) then
+			
+				peak := peak + 1;	
+				
+				if (peak > hsync_adjust) then
+				
+					peak := 0;
+					
+					sync := hsync;
+					
+					if (hsync = hsync_level) then 
+						hblank <= '1';
+						hcount <= 0;
+					end if;
+
+				end if;
+			elsif noise_filter = '1' then
+				peak := 0;
+			end if;
 		end if;
-		
 	end if;
 end process;
 
-process(clk, hblank, vblank)
+process(clk, hblank, vblank, enable)
 begin
 	if (rising_edge(clk)) then
-	
-		if (hblank = '1' and vcount < 65535) then		
-			vcount <= vcount + 1;			
+		if (enable = '1') then
+			if (hblank = '1' and vcount < 65535) then		
+				vcount <= vcount + 1;			
+			end if;
+			
+			if (vblank = '1') then
+				vcount <= 0;
+			end if;
 		end if;
-		
-		if (vblank = '1') then
-			vcount <= 0;
-		end if;
-		
 	end if;
 end process;
 
 
 
 -- detect vsync level, pulse duration and frame interval
-process(clk, vsync)
+process(clk, vsync, enable)
 variable sync : std_logic;
 variable peak: integer range 0 to 65535 := 0;
 
 begin
 	if (rising_edge(clk)) then
-	
-		vblank <= '0';
-		
-		vchange <= '0'; 
-		
-		if (vsync /= sync) then
-		
-			peak := peak + 1;	
+		if (enable = '1') then
+			vblank <= '0';			
+			vchange <= '0'; 			
+			if (vsync /= sync) then
 			
-			if (peak > vsync_ticks) then
-			
-				vchange <= '1';
-								
+				peak := peak + 1;	
+				
+				if (peak > vsync_ticks) then
+				
+					vchange <= '1';
+									
+					peak := 0;
+					
+					sync := vsync;	
+					
+					if (vsync = vsync_level) then
+						vblank <= '1';
+					end if;				
+				end if;			
+			elsif noise_filter = '1' then
 				peak := 0;
-				
-				sync := vsync;	
-				
-				if (vsync = vsync_level) then
-					vblank <= '1';
-				end if;				
-			end if;			
-		elsif noise_filter = '1' then
-			peak := 0;
+			end if;
 		end if;
-		
 	end if;
 end process;
 
-process(clk, vsync, vchange)
+process(clk, vsync, vchange, enable)
 variable peak_lo: integer range 0 to (1024*1024*16-1);
 begin
 	if (rising_edge(clk)) then
-		
-		if(vsync = '0' or vsync = 'Z') then
-			if (peak_lo < (1024*1024*16-1)) then
-				peak_lo := peak_lo + 1;	
+		if (enable = '1') then
+			if(vsync = '0' or vsync = 'Z') then
+				if (peak_lo < (1024*1024*16-1)) then
+					peak_lo := peak_lo + 1;	
+				end if;
+				
+				if(vchange = '1') then
+					vsync_lo <= peak_lo;
+					peak_lo := 0;		
+				end if;			
+				
 			end if;
-			
-			if(vchange = '1') then
-				vsync_lo <= peak_lo;
-				peak_lo := 0;		
-			end if;			
-			
 		end if;
-		
 	end if;
 end process;
 
-process(clk, vsync, vchange)
+process(clk, vsync, vchange, enable)
 variable peak_hi: integer range 0 to (1024*1024*16-1);
 begin
 	if (rising_edge(clk)) then
-		
-		if (vsync = '1') then
-			if (peak_hi < (1024*1024*16-1)) then
-				peak_hi := peak_hi + 1;						
+		if (enable = '1') then		
+			if (vsync = '1') then
+				if (peak_hi < (1024*1024*16-1)) then
+					peak_hi := peak_hi + 1;						
+				end if;
+				
+				if(vchange = '1') then
+					vsync_hi <= peak_hi;
+					peak_hi := 0;						
+				end if;					
 			end if;
-			
-			if(vchange = '1') then
-				vsync_hi <= peak_hi;
-				peak_hi := 0;						
-			end if;					
 		end if;
-		
 	end if;
 end process;
 
 
-process(clk)
+process(clk, enable)
 begin
-	if (rising_edge(clk)) then
+	if (rising_edge(clk)) then		
+		if (enable = '1') then
+			video_trg <= '0';
 		
-		video_trg <= '0';
-		
-		if (video_cnt > 0) then
-			video_cnt <= video_cnt - 1;					
-		else			
-			video_cnt <= 1024 * 1024 * 10;
-			video_trg <= '1';
-		end if;
-		
+			if (video_cnt > 0) then
+				video_cnt <= video_cnt - 1;					
+			else			
+				video_cnt <= 1024 * 1024 * 10;
+				video_trg <= '1';
+			end if;
+		end if;		
 	end if;
 end process;
 
 
-process(clk, video_trg, vsync_lo, vsync_hi)
+process(clk, video_trg, vsync_lo, vsync_hi, enable)
 begin
 	if (rising_edge(clk)) then
 		
-		if (video_trg = '1') then
-			
-			if (enable = '1') then
+		if (enable = '1') then
+		
+			if (video_trg = '1') then			
 			
 				if (hcount = 65535) then
 				
@@ -220,14 +219,14 @@ begin
 				else
 					video_enable <= '0';
 					no_video <= '0';					
-				end if;
-				
-			else			
-				video_enable <= '0';
-				no_video <= '0';					
+				end if;			
+			
 			end if;
 			
-		end if;
+		else			
+			video_enable <= '0';
+			no_video <= '0';					
+		end if;			
 		
 	end if;
 	

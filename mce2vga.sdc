@@ -344,6 +344,133 @@ set_false_path -from {sync_level:mda_sync_level|no_video} -to [get_ports {LED1}]
 set_false_path -from {sync_level:mda_sync_level|no_video} -to [get_ports {LED2}]
 set_false_path -from {sync_level:mda_sync_level|no_video} -to [get_ports {LED3}]
 
+
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[0]} -to {cga_genlock:cga_genlock|s_rgbcomp[0]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[0]} -to {cga_genlock:cga_genlock|s_rgbcomp[1]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[0]} -to {cga_genlock:cga_genlock|s_rgbcomp[2]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[0]} -to {cga_genlock:cga_genlock|s_rgbcomp[3]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[0]} -to {cga_genlock:cga_genlock|s_rgbcomp[4]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[0]} -to {cga_genlock:cga_genlock|s_rgbcomp[5]}
+
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[1]} -to {cga_genlock:cga_genlock|s_rgbcomp[0]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[1]} -to {cga_genlock:cga_genlock|s_rgbcomp[1]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[1]} -to {cga_genlock:cga_genlock|s_rgbcomp[2]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[1]} -to {cga_genlock:cga_genlock|s_rgbcomp[3]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[1]} -to {cga_genlock:cga_genlock|s_rgbcomp[4]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[1]} -to {cga_genlock:cga_genlock|s_rgbcomp[5]}
+
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[2]} -to {cga_genlock:cga_genlock|s_rgbcomp[0]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[2]} -to {cga_genlock:cga_genlock|s_rgbcomp[1]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[2]} -to {cga_genlock:cga_genlock|s_rgbcomp[2]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[2]} -to {cga_genlock:cga_genlock|s_rgbcomp[3]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[2]} -to {cga_genlock:cga_genlock|s_rgbcomp[4]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[2]} -to {cga_genlock:cga_genlock|s_rgbcomp[5]}
+
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[3]} -to {cga_genlock:cga_genlock|s_rgbcomp[0]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[3]} -to {cga_genlock:cga_genlock|s_rgbcomp[1]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[3]} -to {cga_genlock:cga_genlock|s_rgbcomp[2]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[3]} -to {cga_genlock:cga_genlock|s_rgbcomp[3]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[3]} -to {cga_genlock:cga_genlock|s_rgbcomp[4]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[3]} -to {cga_genlock:cga_genlock|s_rgbcomp[5]}
+
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[4]} -to {cga_genlock:cga_genlock|s_rgbcomp[0]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[4]} -to {cga_genlock:cga_genlock|s_rgbcomp[1]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[4]} -to {cga_genlock:cga_genlock|s_rgbcomp[2]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[4]} -to {cga_genlock:cga_genlock|s_rgbcomp[3]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[4]} -to {cga_genlock:cga_genlock|s_rgbcomp[4]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[4]} -to {cga_genlock:cga_genlock|s_rgbcomp[5]}
+
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[5]} -to {cga_genlock:cga_genlock|s_rgbcomp[0]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[5]} -to {cga_genlock:cga_genlock|s_rgbcomp[1]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[5]} -to {cga_genlock:cga_genlock|s_rgbcomp[2]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[5]} -to {cga_genlock:cga_genlock|s_rgbcomp[3]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[5]} -to {cga_genlock:cga_genlock|s_rgbcomp[4]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[5]} -to {cga_genlock:cga_genlock|s_rgbcomp[5]}
+
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[6]} -to {cga_genlock:cga_genlock|s_rgbcomp[0]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[6]} -to {cga_genlock:cga_genlock|s_rgbcomp[1]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[6]} -to {cga_genlock:cga_genlock|s_rgbcomp[2]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[6]} -to {cga_genlock:cga_genlock|s_rgbcomp[3]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[6]} -to {cga_genlock:cga_genlock|s_rgbcomp[4]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[6]} -to {cga_genlock:cga_genlock|s_rgbcomp[5]}
+
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[7]} -to {cga_genlock:cga_genlock|s_rgbcomp[0]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[7]} -to {cga_genlock:cga_genlock|s_rgbcomp[1]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[7]} -to {cga_genlock:cga_genlock|s_rgbcomp[2]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[7]} -to {cga_genlock:cga_genlock|s_rgbcomp[3]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[7]} -to {cga_genlock:cga_genlock|s_rgbcomp[4]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[7]} -to {cga_genlock:cga_genlock|s_rgbcomp[5]}
+
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[8]} -to {cga_genlock:cga_genlock|s_rgbcomp[0]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[8]} -to {cga_genlock:cga_genlock|s_rgbcomp[1]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[8]} -to {cga_genlock:cga_genlock|s_rgbcomp[2]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[8]} -to {cga_genlock:cga_genlock|s_rgbcomp[3]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[8]} -to {cga_genlock:cga_genlock|s_rgbcomp[4]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[8]} -to {cga_genlock:cga_genlock|s_rgbcomp[5]}
+
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[9]} -to {cga_genlock:cga_genlock|s_rgbcomp[0]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[9]} -to {cga_genlock:cga_genlock|s_rgbcomp[1]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[9]} -to {cga_genlock:cga_genlock|s_rgbcomp[2]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[9]} -to {cga_genlock:cga_genlock|s_rgbcomp[3]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[9]} -to {cga_genlock:cga_genlock|s_rgbcomp[4]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[9]} -to {cga_genlock:cga_genlock|s_rgbcomp[5]}
+
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[10]} -to {cga_genlock:cga_genlock|s_rgbcomp[0]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[10]} -to {cga_genlock:cga_genlock|s_rgbcomp[1]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[10]} -to {cga_genlock:cga_genlock|s_rgbcomp[2]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[10]} -to {cga_genlock:cga_genlock|s_rgbcomp[3]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[10]} -to {cga_genlock:cga_genlock|s_rgbcomp[4]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[10]} -to {cga_genlock:cga_genlock|s_rgbcomp[5]}
+
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[11]} -to {cga_genlock:cga_genlock|s_rgbcomp[0]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[11]} -to {cga_genlock:cga_genlock|s_rgbcomp[1]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[11]} -to {cga_genlock:cga_genlock|s_rgbcomp[2]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[11]} -to {cga_genlock:cga_genlock|s_rgbcomp[3]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[11]} -to {cga_genlock:cga_genlock|s_rgbcomp[4]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[11]} -to {cga_genlock:cga_genlock|s_rgbcomp[5]}
+
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[12]} -to {cga_genlock:cga_genlock|s_rgbcomp[0]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[12]} -to {cga_genlock:cga_genlock|s_rgbcomp[1]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[12]} -to {cga_genlock:cga_genlock|s_rgbcomp[2]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[12]} -to {cga_genlock:cga_genlock|s_rgbcomp[3]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[12]} -to {cga_genlock:cga_genlock|s_rgbcomp[4]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[12]} -to {cga_genlock:cga_genlock|s_rgbcomp[5]}
+
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[13]} -to {cga_genlock:cga_genlock|s_rgbcomp[0]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[13]} -to {cga_genlock:cga_genlock|s_rgbcomp[1]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[13]} -to {cga_genlock:cga_genlock|s_rgbcomp[2]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[13]} -to {cga_genlock:cga_genlock|s_rgbcomp[3]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[13]} -to {cga_genlock:cga_genlock|s_rgbcomp[4]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[13]} -to {cga_genlock:cga_genlock|s_rgbcomp[5]}
+
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[14]} -to {cga_genlock:cga_genlock|s_rgbcomp[0]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[14]} -to {cga_genlock:cga_genlock|s_rgbcomp[1]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[14]} -to {cga_genlock:cga_genlock|s_rgbcomp[2]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[14]} -to {cga_genlock:cga_genlock|s_rgbcomp[3]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[14]} -to {cga_genlock:cga_genlock|s_rgbcomp[4]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[14]} -to {cga_genlock:cga_genlock|s_rgbcomp[5]}
+
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[15]} -to {cga_genlock:cga_genlock|s_rgbcomp[0]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[15]} -to {cga_genlock:cga_genlock|s_rgbcomp[1]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[15]} -to {cga_genlock:cga_genlock|s_rgbcomp[2]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[15]} -to {cga_genlock:cga_genlock|s_rgbcomp[3]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[15]} -to {cga_genlock:cga_genlock|s_rgbcomp[4]}
+set_false_path -from {cga_genlock:cga_genlock|s_pixel_queue[15]} -to {cga_genlock:cga_genlock|s_rgbcomp[5]}
+
+set_false_path -from {cga_genlock:cga_genlock|s_phase[0]} -to {cga_genlock:cga_genlock|s_rgbcomp[0]}
+set_false_path -from {cga_genlock:cga_genlock|s_phase[0]} -to {cga_genlock:cga_genlock|s_rgbcomp[1]}
+set_false_path -from {cga_genlock:cga_genlock|s_phase[0]} -to {cga_genlock:cga_genlock|s_rgbcomp[2]}
+set_false_path -from {cga_genlock:cga_genlock|s_phase[0]} -to {cga_genlock:cga_genlock|s_rgbcomp[3]}
+set_false_path -from {cga_genlock:cga_genlock|s_phase[0]} -to {cga_genlock:cga_genlock|s_rgbcomp[4]}
+set_false_path -from {cga_genlock:cga_genlock|s_phase[0]} -to {cga_genlock:cga_genlock|s_rgbcomp[5]}
+
+set_false_path -from {cga_genlock:cga_genlock|s_phase[1]} -to {cga_genlock:cga_genlock|s_rgbcomp[0]}
+set_false_path -from {cga_genlock:cga_genlock|s_phase[1]} -to {cga_genlock:cga_genlock|s_rgbcomp[1]}
+set_false_path -from {cga_genlock:cga_genlock|s_phase[1]} -to {cga_genlock:cga_genlock|s_rgbcomp[2]}
+set_false_path -from {cga_genlock:cga_genlock|s_phase[1]} -to {cga_genlock:cga_genlock|s_rgbcomp[3]}
+set_false_path -from {cga_genlock:cga_genlock|s_phase[1]} -to {cga_genlock:cga_genlock|s_rgbcomp[4]}
+set_false_path -from {cga_genlock:cga_genlock|s_phase[1]} -to {cga_genlock:cga_genlock|s_rgbcomp[5]}
+
 #**************************************************************
 # Set Multicycle Path
 #**************************************************************

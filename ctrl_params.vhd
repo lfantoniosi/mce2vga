@@ -51,35 +51,39 @@ begin
 	process(clk, enable, s_up_pressed, s_down_pressed)
 	begin
 		if (rising_edge(clk)) then	
-			if (s_up_pressed = '1') then
-					if (s_cur_ctrl > 0) then
-						s_cur_ctrl <= s_cur_ctrl - 1;
-					else
-						s_cur_ctrl <= 2;
-					end if;
-			elsif (s_down_pressed = '1') then
-					if (s_cur_ctrl < 2) then
-						s_cur_ctrl <= s_cur_ctrl + 1;
-					else
-						s_cur_ctrl <= 0;
-					end if;		
+			if (enable = '1') then
+				if (s_up_pressed = '1') then
+						if (s_cur_ctrl > 0) then
+							s_cur_ctrl <= s_cur_ctrl - 1;
+						else
+							s_cur_ctrl <= 2;
+						end if;
+				elsif (s_down_pressed = '1') then
+						if (s_cur_ctrl < 2) then
+							s_cur_ctrl <= s_cur_ctrl + 1;
+						else
+							s_cur_ctrl <= 0;
+						end if;		
+				end if;
 			end if;
 		end if;
 	end process;
 	
 	process(clk, enable, s_cur_ctrl, s_left_pressed, s_right_pressed)
 	begin
-		if (rising_edge(clk)) then		
-			if (s_left_pressed = '1') then
-				if (s_cur_ctrl = 2) then
-					if (s_phase > 0) then
-						s_phase <= s_phase - 1;
+		if (rising_edge(clk)) then	
+			if (enable = '1') then		
+				if (s_left_pressed = '1') then
+					if (s_cur_ctrl = 2) then
+						if (s_phase > 0) then
+							s_phase <= s_phase - 1;
+						end if;
 					end if;
-				end if;
-			elsif (s_right_pressed = '1') then
-				if (s_cur_ctrl = 2) then
-					if (s_phase < 7) then
-						s_phase <= s_phase + 1;
+				elsif (s_right_pressed = '1') then
+					if (s_cur_ctrl = 2) then
+						if (s_phase < 7) then
+							s_phase <= s_phase + 1;
+						end if;
 					end if;
 				end if;
 			end if;
@@ -89,16 +93,18 @@ begin
 	process(clk, enable, s_cur_ctrl, s_left_pressed, s_right_pressed)
 	begin
 		if (rising_edge(clk)) then		
-			if (s_left_pressed = '1') then
-				if (s_cur_ctrl = 3) then
-					if (s_samples > 0) then
-						s_samples <= s_samples - 1;
+			if (enable = '1') then		
+				if (s_left_pressed = '1') then
+					if (s_cur_ctrl = 3) then
+						if (s_samples > 0) then
+							s_samples <= s_samples - 1;
+						end if;
 					end if;
-				end if;
-			elsif (s_right_pressed = '1') then
-				if (s_cur_ctrl = 3) then
-					if (s_samples < 7) then
-						s_samples <= s_samples + 1;
+				elsif (s_right_pressed = '1') then
+					if (s_cur_ctrl = 3) then
+						if (s_samples < 7) then
+							s_samples <= s_samples + 1;
+						end if;
 					end if;
 				end if;
 			end if;
@@ -108,16 +114,18 @@ begin
 	process(clk, enable, s_cur_ctrl, s_left_pressed, s_right_pressed)
 	begin
 		if (rising_edge(clk)) then		
-			if (s_left_pressed = '1') then
-				if (s_cur_ctrl = 0) then
-					if (s_left_border < 255) then
-						s_left_border <= s_left_border + 1;
+			if (enable = '1') then		
+				if (s_left_pressed = '1') then
+					if (s_cur_ctrl = 0) then
+						if (s_left_border < 255) then
+							s_left_border <= s_left_border + 1;
+						end if;
 					end if;
-				end if;
-			elsif (s_right_pressed = '1') then
-				if (s_cur_ctrl = 0) then
-					if (s_left_border > 0) then
-						s_left_border <= s_left_border - 1;
+				elsif (s_right_pressed = '1') then
+					if (s_cur_ctrl = 0) then
+						if (s_left_border > 0) then
+							s_left_border <= s_left_border - 1;
+						end if;
 					end if;
 				end if;
 			end if;
@@ -126,17 +134,19 @@ begin
 	
 	process(clk, enable, s_cur_ctrl, s_left_pressed, s_right_pressed)
 	begin
-		if (rising_edge(clk)) then		
-			if (s_left_pressed = '1') then
-				if (s_cur_ctrl = 1) then
-					if (s_top_border < 63) then
-						s_top_border <= s_top_border + 1;
+		if (rising_edge(clk)) then	
+			if (enable = '1') then		
+				if (s_left_pressed = '1') then
+					if (s_cur_ctrl = 1) then
+						if (s_top_border < 63) then
+							s_top_border <= s_top_border + 1;
+						end if;
 					end if;
-				end if;
-			elsif (s_right_pressed = '1') then
-				if (s_cur_ctrl = 1) then
-					if (s_top_border > 0) then
-						s_top_border <= s_top_border - 1;
+				elsif (s_right_pressed = '1') then
+					if (s_cur_ctrl = 1) then
+						if (s_top_border > 0) then
+							s_top_border <= s_top_border - 1;
+						end if;
 					end if;
 				end if;
 			end if;
@@ -246,36 +256,39 @@ begin
 	process(clk, down_btn, up_btn, left_btn, right_btn, enable)
 	variable peak: integer range 0 to 256*1024*1024 := 0;
 	begin
-		if (rising_edge(clk)) then			
-			osd_active <= '0';
-			
-			if (peak > 0) then
-				peak := peak - 1;
-				osd_active <= '1';				
-			end if;
-			
-			if (down_btn = '1' or up_btn = '1' or left_btn = '1' or right_btn = '1') then
-				peak := 256*1024*1024-1;
-			end if;
-			
+		if (rising_edge(clk)) then	
+			if (enable = '1') then
+				osd_active <= '0';
+				
+				if (peak > 0) then
+					peak := peak - 1;
+					osd_active <= '1';				
+				end if;
+				
+				if (down_btn = '1' or up_btn = '1' or left_btn = '1' or right_btn = '1') then
+					peak := 256*1024*1024-1;
+				end if;
+			end if;			
 		end if;
 	end process;	
 	
-	process(clk, s_phase, s_samples, s_top_border, s_left_border, s_cur_ctrl)
+	process(clk, s_phase, s_samples, s_top_border, s_left_border, s_cur_ctrl, enable)
 	begin
 		if (rising_edge(clk)) then			
-			case s_cur_ctrl is
-				when 0 =>
-					osd_value <= to_unsigned(63 - to_integer(s_left_border(7 downto 2)), 6);
-				when 1 =>
-					osd_value <= to_unsigned(63 - to_integer(s_top_border(5 downto 0)), 6);
-				when 2 =>
-					osd_value <= s_phase & s_phase;
-				when 3 =>
-					osd_value <= s_samples  & s_samples;
-				when others =>
-					osd_value <= (others => '0');
-			end case;
+			if (enable = '1') then
+				case s_cur_ctrl is
+					when 0 =>
+						osd_value <= to_unsigned(63 - to_integer(s_left_border(7 downto 2)), 6);
+					when 1 =>
+						osd_value <= to_unsigned(63 - to_integer(s_top_border(5 downto 0)), 6);
+					when 2 =>
+						osd_value <= s_phase & s_phase;
+					when 3 =>
+						osd_value <= s_samples  & s_samples;
+					when others =>
+						osd_value <= (others => '0');
+				end case;
+			end if;
 		end if;
 	end process;	
 

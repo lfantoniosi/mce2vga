@@ -66,23 +66,24 @@ begin
 	end process;	
 		
 	-- colum counter
-	process(clk, hblank)
+	process(clk, hblank, enable)
 	begin
 		if (rising_edge(clk)) then
-			if (hblank = '1') then
-				hgc_tick <= (others => '0');
-			else
-				hgc_tick <= hgc_tick + 1;
+			if (enable = '1') then		
+				if (hblank = '1') then
+					hgc_tick <= (others => '0');
+				else
+					hgc_tick <= hgc_tick + 1;
+				end if;
 			end if;
 		end if;
 	end process;
 	
 	-- colum counter
-	process(clk, hblank, hgc_tick)
-	begin
-		
-			if (rising_edge(clk)) then
-			
+	process(clk, hblank, hgc_tick, enable)
+	begin		
+		if (rising_edge(clk)) then
+			if (enable = '1') then	
 				if (hblank = '1') then
 					max_col <= col_number + 1;
 					if (col_number >= 807) then
@@ -91,17 +92,16 @@ begin
 					hcount <= (others => '0');
 				elsif (hgc_tick(5 downto 0) /= "111111") then
 					hcount <= hcount + 1;					
-				end if;
-				
+				end if;				
 			end if;
-		
+		end if;		
 	end process;
 
 	-- line counter
-	process(clk, hblank, vblank)
-	begin
-
-			if (rising_edge(clk)) then
+	process(clk, hblank, vblank, enable)
+	begin	
+		if (rising_edge(clk)) then
+			if (enable = '1') then
 				if (hblank = '1') then
 					vcount <= vcount + 1;
 				elsif (vblank = '1') then
@@ -109,7 +109,7 @@ begin
 					vcount <= (others => '0');
 				end if;
 			end if;
-		
+		end if;
 	end process;
 
 	-- sram sync
@@ -125,111 +125,67 @@ begin
 	end process;
 
 	-- col / row adjustment
-	process(clk, hcount, s_col_begin, s_col_end, s_row_begin, s_row_end)
-	begin
-	
+	process(clk, hcount, s_col_begin, s_col_end, s_row_begin, s_row_end, enable)
+	begin	
 		if (rising_edge(clk)) then		
-			wren <= '0';		
-			if ((hcount(2 downto 0) = "000") and (hcount(hcount'length-1 downto 3) > s_col_begin and hcount(hcount'length-1 downto 3) < s_col_end) and (vcount > s_row_begin and vcount < s_row_end) ) then
-				wren <= '1'; -- enable row RAM write
-			end if;		
-		end if;
-			
-	end process;
-	
-	process(clk, vcount, hblank, s_row_begin, s_row_end)
-	begin
-		
-		if (rising_edge(clk)) then		
-
-			if (wr_req = '1') then
-				store_trg <= '0';
-			end if;
-			
-			if (hblank = '1') then			
-				if (vcount > s_row_begin and vcount < s_row_end) then
-					row_number <= row_number + 1;		
-					store_trg <= '1';
-				end if;				
-			end if;
-			
-			if (vblank = '1') then				
-				row_number <= (others => '0');				
+			if (enable = '1') then
+				wren <= '0';		
+				if ((hcount(2 downto 0) = "000") and (hcount(hcount'length-1 downto 3) > s_col_begin and hcount(hcount'length-1 downto 3) < s_col_end) and (vcount > s_row_begin and vcount < s_row_end) ) then
+					wren <= '1'; -- enable row RAM write
+				end if;		
 			end if;
 		end if;
-	
 	end process;
 	
-	process(clk, hcount, hblank, s_col_begin, s_col_end)
-	begin
-		
+	process(clk, vcount, hblank, s_row_begin, s_row_end, enable)
+	begin		
 		if (rising_edge(clk)) then		
-			-- hgc is 16.000 Mhz while MDA is 16.257Mhz. This can be approximated to 63/64. So each 64 ticks skip one
-			if (hgc_tick(5 downto 0) /= "111111") then
-				if (hcount(2 downto 0) = "111" and hcount(hcount'length-1 downto 3) > s_col_begin and hcount(hcount'length-1 downto 3) < s_col_end) then
-					col_number <= col_number + 1;
+			if (enable = '1') then
+				if (wr_req = '1') then
+					store_trg <= '0';
+				end if;
+				
+				if (hblank = '1') then			
+					if (vcount > s_row_begin and vcount < s_row_end) then
+						row_number <= row_number + 1;		
+						store_trg <= '1';
+					end if;				
+				end if;
+				
+				if (vblank = '1') then				
+					row_number <= (others => '0');				
 				end if;
 			end if;
-				
-			if (hblank = '1') then
-				col_number <= (others => '0');
-			end if;
-			
 		end if;
+	end process;
 	
+	process(clk, hcount, hblank, s_col_begin, s_col_end, enable)
+	begin		
+		if (rising_edge(clk)) then		
+			if (enable = '1') then		
+				-- hgc is 16.000 Mhz while MDA is 16.257Mhz. This can be approximated to 63/64. So each 64 ticks skip one
+				if (hgc_tick(5 downto 0) /= "111111") then
+					if (hcount(2 downto 0) = "111" and hcount(hcount'length-1 downto 3) > s_col_begin and hcount(hcount'length-1 downto 3) < s_col_end) then
+						col_number <= col_number + 1;
+					end if;
+				end if;				
+				if (hblank = '1') then
+					col_number <= (others => '0');
+				end if;			
+			end if;
+		end if;
 	end process;	
 
---	process(clk, hcount, hblank, video, sample_adj) 
---	variable i : integer range 0 to 15;
---	begin
---		if (rising_edge(clk)) then	
---			if (hgc_tick(5 downto 0) /= "111111") then
---				if(video = '1') then
---					i := i + 1;
---				end if;
---				if (hcount(2 downto 0) = "110") then
---						vi(1) <= '0';
---						if (i > sample_adj) then
---							vi(1) <= '1';
---						end if;
---						i := 0;
---				end if;			
---			end if;
---		end if;		
---	end process;
---
---	process(clk, hcount, hblank, intensity, sample_adj) 
---	variable i : integer range 0 to 15;
---	begin
---		if (rising_edge(clk)) then	
---			if (hgc_tick(5 downto 0) /= "111111") then
---				if(intensity = '1') then
---					i := i + 1;
---				end if;
---				if (hcount(2 downto 0) = "110") then
---					vi(0) <= '0';
---					if (i > sample_adj) then
---						vi(0) <= '1';
---					end if;
---					i := 0;
---				end if;
---			end if;			
---		end if;		
---	end process;
-	
-	process(clk, hcount, video, intensity, col_number)
+	process(clk, hcount, video, intensity, col_number, enable)
 	variable rgbi : unsigned(3 downto 0);		
-	begin
-	
+	begin	
 		if (rising_edge(clk)) then
-		
-			if (hcount(2 downto 0) = "111") then		
-			
-				pixel <= video & intensity & video & intensity & video & intensity;
-					
+			if (enable = '1') then
+				if (hcount(2 downto 0) = "111") then		
+					pixel <= video & intensity & video & intensity & video & intensity;					
+				end if;
 			end if;
 		end if;
-		
 	end process;
 
 

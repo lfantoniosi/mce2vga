@@ -69,10 +69,10 @@ begin
 	end process;
 	
 	-- colum counter
-	process(clk, hblank)
-	begin
-		
-			if (rising_edge(clk)) then
+	process(clk, hblank, enable)
+	begin		
+		if (rising_edge(clk)) then
+			if (enable = '1') then		
 				if (hblank = '1') then
 					max_col <= col_number;
 					if (col_number >= 759) then
@@ -83,14 +83,15 @@ begin
 					hcount <= hcount + 1;
 				end if;
 			end if;
+		end if;
 		
 	end process;
 
 	-- line counter
-	process(clk, hblank, vblank)
+	process(clk, hblank, vblank, enable)
 	begin
-
-			if (rising_edge(clk)) then
+		if (rising_edge(clk)) then
+			if (enable = '1') then
 				if (hblank = '1') then
 					vcount <= vcount + 1;
 				elsif (vblank = '1') then
@@ -98,7 +99,7 @@ begin
 					vcount <= (others => '0');
 				end if;
 			end if;
-		
+		end if;
 	end process;
 
 	-- sram sync
@@ -114,166 +115,66 @@ begin
 	end process;
 
 	-- col / row adjustment
-	process(clk, hcount, rrggbb, pixel, s_col_begin, s_col_end, s_row_begin, s_row_end)
-	begin
-	
+	process(clk, hcount, rrggbb, pixel, s_col_begin, s_col_end, s_row_begin, s_row_end, enable)
+	begin	
 		if (rising_edge(clk)) then		
-			wren <= '0';		
-			if ((hcount(2 downto 0) = "000") and (hcount(hcount'length-1 downto 3) > s_col_begin and hcount(hcount'length-1 downto 3) < s_col_end) and (vcount > s_row_begin and vcount < s_row_end) ) then
-				wren <= '1'; -- enable row RAM write
-			end if;		
+			if (enable = '1') then
+				wren <= '0';		
+				if ((hcount(2 downto 0) = "000") and (hcount(hcount'length-1 downto 3) > s_col_begin and hcount(hcount'length-1 downto 3) < s_col_end) and (vcount > s_row_begin and vcount < s_row_end) ) then
+					wren <= '1'; -- enable row RAM write
+				end if;		
+			end if;
 		end if;
 			
 	end process;
 
-	process(clk, vcount, hblank, hcount, s_row_begin, s_row_end, s_col_trg)  --, s_col_begin, s_col_end
-	begin
-		
+	process(clk, vcount, hblank, hcount, s_row_begin, s_row_end, s_col_trg, enable)  --, s_col_begin, s_col_end
+	begin		
 		if (rising_edge(clk)) then		
-
-			if (wr_req = '1') then
-				store_trg <= '0';
-			end if;
-			
-			--if(hblank = '1') then			
-			if((hcount(2 downto 0) = "000") and hcount(hcount'length-1 downto 3) = s_col_trg) then
-				if (vcount > s_row_begin and vcount < s_row_end) then
-					row_number <= row_number + 1;		
-					store_trg <= '1';
-				end if;				
-			end if;
-			
-			if (vblank = '1') then				
-				row_number <= (others => '0');				
-			end if;
-		end if;
-	
-	end process;
-	
-	process(clk, hcount, hblank, s_col_begin, s_col_end)
-	begin
-		
-		if (rising_edge(clk)) then		
-		
-			if (hcount(2 downto 0) = "111" and hcount(hcount'length-1 downto 3) > s_col_begin and hcount(hcount'length-1 downto 3) < s_col_end) then
-				col_number <= col_number + 1;
-			end if;
+			if (enable = '1') then
+				if (wr_req = '1') then
+					store_trg <= '0';
+				end if;
 				
-			if (hblank = '1') then
-				col_number <= (others => '0');
+				--if(hblank = '1') then			
+				if((hcount(2 downto 0) = "000") and hcount(hcount'length-1 downto 3) = s_col_trg) then
+					if (vcount > s_row_begin and vcount < s_row_end) then
+						row_number <= row_number + 1;		
+						store_trg <= '1';
+					end if;				
+				end if;
+				
+				if (vblank = '1') then				
+					row_number <= (others => '0');				
+				end if;
 			end if;
 		end if;
+	end process;
 	
+	process(clk, hcount, hblank, s_col_begin, s_col_end, enable)
+	begin		
+		if (rising_edge(clk)) then		
+			if (enable = '1') then
+				if (hcount(2 downto 0) = "111" and hcount(hcount'length-1 downto 3) > s_col_begin and hcount(hcount'length-1 downto 3) < s_col_end) then
+					col_number <= col_number + 1;
+				end if;
+					
+				if (hblank = '1') then
+					col_number <= (others => '0');
+				end if;
+			end if;
+		end if;	
 	end process;	
-
---	process(clk, hcount, pr, sample_adj) 
---	variable i : integer range 0 to 15;
---	begin
---		if (rising_edge(clk)) then				
---			if (hcount(2 downto 0) = "110") then
---				rrggbb(5) <= '0';
---				if (i > sample_adj) then
---					rrggbb(5) <= '1';
---				end if;
---				i := 0;
---			elsif(pr = '1') then
---				i := i + 1;
---			end if;	
---		end if;		
---	end process;
---
---	process(clk, hcount, sr, sample_adj) 
---	variable i : integer range 0 to 15;
---	begin
---		if (rising_edge(clk)) then				
---			if (hcount(2 downto 0) = "110") then
---				rrggbb(4) <= '0';
---				if (i > sample_adj) then
---					rrggbb(4) <= '1';
---				end if;
---				i := 0;
---			elsif(sr = '1') then
---				i := i + 1;
---			end if;				
---		end if;		
---	end process;
---	
---
---	process(clk, hcount, pg, sample_adj) 
---	variable i : integer range 0 to 15;
---	begin
---		if (rising_edge(clk)) then						
---			if (hcount(2 downto 0) = "110") then
---				rrggbb(3) <= '0';
---				if (i > sample_adj) then
---					rrggbb(3) <= '1';
---				end if;
---				i := 0;
---			elsif(pg = '1') then
---				i := i + 1;
---			end if;	
---		end if;		
---	end process;	
---	
---	process(clk, hcount, sg, sample_adj) 
---	variable i : integer range 0 to 15;
---	begin
---		if (rising_edge(clk)) then				
---			if (hcount(2 downto 0) = "110") then
---				rrggbb(2) <= '0';
---				if (i > sample_adj) then
---					rrggbb(2) <= '1';
---				end if;
---				i := 0;
---			elsif(sg = '1') then
---				i := i + 1;
---			end if;			
---		end if;		
---	end process;	
---	
---	
---	process(clk, hcount, pb, sample_adj)
---	variable i : integer range 0 to 15;
---	begin
---		if (rising_edge(clk)) then				
---			if (hcount(2 downto 0) = "110") then
---				rrggbb(1) <= '0';
---				if (i > sample_adj) then
---					rrggbb(1) <= '1';
---				end if;
---				i := 0;
---			elsif(pb = '1') then
---				i := i + 1;
---			end if;		
---		end if;		
---	end process;		
---	
---	process(clk, hcount, sb, sample_adj) 
---	variable i : integer range 0 to 15;
---	begin
---		if (rising_edge(clk)) then	
---			if(sb = '1') then
---				i := i + 1;
---			end if;
---			if (hcount(2 downto 0) = "110") then
---				rrggbb(0) <= '0';
---				if (i > sample_adj) then
---					rrggbb(0) <= '1';
---				end if;
---				i := 0;
---			end if;			
---		end if;		
---	end process;	
 		
-	process(clk, pr, sr, pg, sg, pb, sb) 
+	process(clk, pr, sr, pg, sg, pb, sb, enable) 
 	begin
 		if (rising_edge(clk)) then
-			if (hcount(2 downto 0) = "111") then
-				pixel <= pr & sr & pg & sg & pb & sb;
+			if (enable = '1') then		
+				if (hcount(2 downto 0) = "111") then
+					pixel <= pr & sr & pg & sg & pb & sb;
+				end if;
 			end if;
 		end if;
-		
 	end process;	
-
 
 end behavioral;

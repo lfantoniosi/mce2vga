@@ -64,6 +64,7 @@ begin
 		variable SramAddress : unsigned(17 downto 0);
 		
 	begin
+		if rising_edge(clk) then		
 		if (enable = '0') then
 			-- disable
 			
@@ -81,8 +82,7 @@ begin
 				
 			SramRoutine := SramRoutine_Idle;
 			SramRoutineSeq := 0;			
-			
-		elsif rising_edge(clk) then		
+		else
 		
 			rd_ack <= '0';
 			wr_ack <= '0';
@@ -167,6 +167,8 @@ begin
 					end if;				
 						
 			end case;
+			
+		end if;
 	
 		end if;
 			
