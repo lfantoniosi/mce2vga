@@ -108,11 +108,6 @@ agreement for further details.
 		""
 		(type "PARAMETER_SIGNED_DEC")	)
 	(parameter
-		"default"
-		"'0'"
-		""
-		(type "PARAMETER_ENUM")	)
-	(parameter
 		"noise_filter"
 		"'1'"
 		""
